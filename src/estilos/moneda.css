@@ -1,0 +1,73 @@
+/*POSICIONES--------------------*/
+#Moneda-Seccion{
+    border: solid 3px black;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.contenedor-moneda{
+    border: solid rgb(70, 70, 70) 3px;
+    border-radius: 20px;
+    width: 35vw;
+    height: 15vw;
+    margin-bottom: 6rem;
+    position: relative;
+}
+
+.contenedor-moneda .mis-monedas{
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.contenedor-moneda .apostar{
+    position: absolute;
+    display: flex;
+    top: 1rem;
+    right: 1rem;
+}
+
+.contenedor-moneda .apostar div{
+    margin: 0 10px;
+}
+
+.contenedor-moneda .estado-moneda{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor-moneda .elegir{
+    margin-top: 1rem;
+}
+
+.contenedor-moneda .contenedor-lanzar-moneda{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 1rem;
+    width: 100%;
+    height: 20px;
+}
+
+.contenedor-moneda .boton-lanzar-moneda{
+    position: absolute;
+    bottom: 0;
+}
+/*--------------------POSICIONES*/
+
+
+/*CAMBIO ELECCION DE MONEDA--------------------*/
+.estado-moneda .elegir .boton-elegir{
+    background-color: red;
+}
+
+.estado-moneda .elegir .boton-elegir.seleccionado{
+    background-color: green;
+}
+/*--------------------CAMBIO ELECCION DE MONEDA*/
