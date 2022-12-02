@@ -1,35 +1,34 @@
 import '../estilos/moneda.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Moneda(){
 
-    const moneda = {cara: 'CARA', ceca: 'CECA'}
+    const moneda = {cara: 'CARA', ceca: 'CECA', girando: 'GIRANDO'}
 
     const [misMonedas, setMisMonedas] = useState(100);
     const [monedasApostadas, setMonedasApostadas] = useState(0);
     const [miEleccionMoneda, setMiEleccionMoneda] = useState(moneda.cara);
     const [seleccion, setSeleccion] = useState(false)
     const [estadoMoneda, setEstadoMoneda] = useState(moneda.cara);
+    const [girando, setGirando] = useState(false)
+    
+    
+    window.addEventListener("load", () => {
+
+        document.getElementById('Boton-Cara').addEventListener('click', () => {
+            setMiEleccionMoneda(moneda.cara)
+        })
+
+        document.getElementById('Boton-Ceca').addEventListener('click', () => {
+            setMiEleccionMoneda(moneda.ceca)
+        })
+    })
 
     function cambiarSeleccion(){
         setSeleccion(!seleccion)
-
-        const cara = document.getElementById('Boton-Cara');
-        const ceca = document.getElementById('Boton-Ceca')
-
-        cara.addEventListener('click', function(){
-            setEstadoMoneda(moneda.cara)
-            console.log('caraa')
-        });
-
-        ceca.addEventListener('click', function(){
-            setEstadoMoneda(moneda.ceca)
-            console.log('cecaaa')
-        });        
-        // miEleccionMoneda === moneda.cara ? setMiEleccionMoneda(moneda.ceca) : setMiEleccionMoneda(moneda.cara)
-        // console.log(seleccion)
-        console.log(miEleccionMoneda)
     }
+
+    
     
     function apuestaValidaSuma(apuesta){
         return apuesta < misMonedas;
@@ -53,6 +52,64 @@ export default function Moneda(){
         // console.log(monedasApostadas)
     }
 
+
+    
+    // useEffect( () => {
+
+        
+    //     // let tiempo = setTimeout(()=>{}, 1000)
+    //     if(estadoMoneda === miEleccionMoneda){
+    //         setMisMonedas(misMonedas + monedasApostadas)
+    //         console.log('GANASTE')
+    //     } else {
+    //         setMisMonedas(misMonedas - monedasApostadas)
+    //         console.log('PERDISTE')
+    //     }
+    //     setMonedasApostadas(0)
+    //     console.log('Use Effect Moneda: ' + estadoMoneda)
+
+    //     return () => {
+    //         let azar = Math.random();
+    //         azar >= 0 && azar < 0.5 ? setEstadoMoneda(moneda.cara) : setEstadoMoneda(moneda.ceca);
+    //         console.log('EN RETURN')
+    //     }
+
+    //     // return () => {
+    //     //     clearTimeout(tiempo)
+    //     // }
+
+    // }, [girando])
+
+    function girarMoneda(){
+        let azar = Math.random();
+        azar >= 0 && azar < 0.5 ? setEstadoMoneda(moneda.cara) : setEstadoMoneda(moneda.ceca);
+    }
+
+    useEffect( () => {
+        // Este if es evitable
+        if(girando){
+            if(estadoMoneda === miEleccionMoneda){
+                setMisMonedas(misMonedas + monedasApostadas)
+                console.log('GANASTE')
+            } else {
+                setMisMonedas(misMonedas - monedasApostadas)
+                console.log('PERDISTE')
+            }
+            setMonedasApostadas(0)
+            setGirando(false)
+        }
+    }, [girando])
+
+
+    function lanzar(){
+
+        girarMoneda();
+
+        setGirando(true);
+        
+        // setTimeout(()=>{console.log('Pasó un segundo')}, 1000)
+    }
+
     return(
         <section className='moneda-seccion' id='Moneda-Seccion'>
             <div className='contenedor-moneda'>
@@ -65,13 +122,14 @@ export default function Moneda(){
                 <div className='estado-moneda'>
                     { estadoMoneda }
                     <div className='elegir'>
-                        <button className={`boton-moneda boton-elegir boton-cara ${seleccion ? "seleccionado" : ""}`} id='Boton-Cara' onClick={() => { cambiarSeleccion() }}>Cara</button>
-                        <button className={`boton-moneda boton-elegir boton-ceca ${seleccion ? "" : "seleccionado"}`} id='Boton-Ceca' onClick={() => { cambiarSeleccion() }}>Ceca</button>
+                        <button className={`boton-moneda boton-elegir boton-cara ${seleccion ? "" : "seleccionado"}`} disabled={!seleccion} id='Boton-Cara' onClick={() => { cambiarSeleccion() }}>Cara</button>
+                        <button className={`boton-moneda boton-elegir boton-ceca ${seleccion ? "seleccionado" : ""}`} disabled={seleccion} id='Boton-Ceca' onClick={() => { cambiarSeleccion() }}>Ceca</button>
                     </div>
                 </div>
                 <div className='contenedor-lanzar-moneda'>
-                    <button className='boton-lanzar-moneda'>Lanzar</button>
+                    <button className='boton-lanzar-moneda' onClick={ () => { lanzar() } }>Lanzar</button>
                 </div>
+                    <div>{miEleccionMoneda}</div>
             </div>
         </section>
     )

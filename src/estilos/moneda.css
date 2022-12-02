@@ -65,9 +65,26 @@
 /*CAMBIO ELECCION DE MONEDA--------------------*/
 .estado-moneda .elegir .boton-elegir{
     background-color: red;
+    border: none;
+    padding: 5px;
+    transition: 0.2s linear;
+}
+
+.estado-moneda .elegir .boton-elegir:hover{
+    background-color: rgb(253, 98, 98);
+}
+
+.estado-moneda .elegir .boton-elegir.boton-cara{
+    border-radius: 7px 0px 0px 7px;
+}
+.estado-moneda .elegir .boton-elegir.boton-ceca{
+    border-radius: 0px 7px 7px 0px;
 }
 
 .estado-moneda .elegir .boton-elegir.seleccionado{
     background-color: green;
+    color: black;
+    padding: 7px;
+    font-size: 0.9rem;
 }
 /*--------------------CAMBIO ELECCION DE MONEDA*/
