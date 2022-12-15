@@ -1,12 +1,18 @@
 import '../estilos/moneda.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { StoreContext } from '../store/StoreProvider';
+import { types } from '../store/storeReducer';
 
 export default function Moneda(){
+
+    const [store, dispatch] = useContext(StoreContext);
+    const { numeroDePrueba } = store;
 
     const moneda = {cara: 'CARA', ceca: 'CECA', girando: 'GIRANDO'}
 
     const [misMonedas, setMisMonedas] = useState(100);
     const [monedasApostadas, setMonedasApostadas] = useState(0);
+    const [ultimaApuesta, setUltimaApuesta] = useState(0);
     const [miEleccionMoneda, setMiEleccionMoneda] = useState(moneda.cara);
     const [seleccion, setSeleccion] = useState(false)
     const [estadoMoneda, setEstadoMoneda] = useState(moneda.cara);
@@ -27,7 +33,6 @@ export default function Moneda(){
     function cambiarSeleccion(){
         setSeleccion(!seleccion)
     }
-
     
     
     function apuestaValidaSuma(apuesta){
@@ -88,17 +93,22 @@ export default function Moneda(){
     useEffect( () => {
         // Este if es evitable
         if(girando){
+            let resultado = 0;
             if(estadoMoneda === miEleccionMoneda){
                 setMisMonedas(misMonedas + monedasApostadas)
+                resultado = monedasApostadas
                 console.log('GANASTE')
             } else {
                 setMisMonedas(misMonedas - monedasApostadas)
+                resultado = monedasApostadas * -1
                 console.log('PERDISTE')
             }
             setMonedasApostadas(0)
             setGirando(false)
+            setUltimaApuesta(resultado)
         }
-    }, [girando])
+    }, [girando, estadoMoneda, miEleccionMoneda, misMonedas, monedasApostadas])
+    // Solo "girando" es necesario, pero con los otros se evita un warning (por las dependencias de useEffect)
 
 
     function lanzar(){
@@ -114,10 +124,11 @@ export default function Moneda(){
         <section className='moneda-seccion' id='Moneda-Seccion'>
             <div className='contenedor-moneda'>
                 <div className='mis-monedas'>Monedas: { misMonedas } (-{ monedasApostadas })</div>
+                <div className='ultima-apuesta'>Última apuesta: { ultimaApuesta }</div>
                 <div className='apostar'>
-                    <button className='boton-moneda boton-apuesta boton-menos' onClick={ () => { restarApuesta() } }>-</button>
+                    <button className='boton-moneda botones-tres boton-apuesta boton-menos' onClick={ () => { restarApuesta() } }>-</button>
                     <div className='cantidad-apuesta'>{ monedasApostadas }</div>
-                    <button className='boton-apuesta boton-mas' onClick={ () => { sumarApuesta() } }>+</button>
+                    <button className='boton-moneda botones-tres boton-apuesta boton-mas' onClick={ () => { sumarApuesta() } }>+</button>
                 </div>
                 <div className='estado-moneda'>
                     { estadoMoneda }
@@ -127,9 +138,15 @@ export default function Moneda(){
                     </div>
                 </div>
                 <div className='contenedor-lanzar-moneda'>
-                    <button className='boton-lanzar-moneda' onClick={ () => { lanzar() } }>Lanzar</button>
+                    <button className='boton-moneda botones-tres boton-lanzar-moneda' onClick={ () => { lanzar() } } disabled={monedasApostadas === 0}>Lanzar</button>
                 </div>
-                    <div>{miEleccionMoneda}</div>
+
+                <div>
+                    Numero De prueba: { numeroDePrueba }
+                </div>
+
+                <button onClick={ () => dispatch({ type: types.restarPrueba, envio: numeroDePrueba-1})}>-</button>
+                <button onClick={ () => dispatch({ type: types.sumarPrueba, envio: numeroDePrueba+1})}>+</button>
             </div>
         </section>
     )

@@ -23,6 +23,13 @@
     left: 1rem;
 }
 
+.contenedor-moneda .ultima-apuesta{
+    position: absolute;
+    top: 2.5rem;
+    left: 1rem;
+}
+
+
 .contenedor-moneda .apostar{
     position: absolute;
     display: flex;
@@ -64,14 +71,16 @@
 
 /*CAMBIO ELECCION DE MONEDA--------------------*/
 .estado-moneda .elegir .boton-elegir{
-    background-color: red;
+    background-color: #b1541e;
     border: none;
     padding: 5px;
     transition: 0.2s linear;
+    color: white;
 }
 
 .estado-moneda .elegir .boton-elegir:hover{
-    background-color: rgb(253, 98, 98);
+    /* background-color: rgb(253, 98, 98); */
+    background-color: green;
 }
 
 .estado-moneda .elegir .boton-elegir.boton-cara{
@@ -82,9 +91,52 @@
 }
 
 .estado-moneda .elegir .boton-elegir.seleccionado{
-    background-color: green;
-    color: black;
+    background-color: #72af00;
     padding: 7px;
     font-size: 0.9rem;
 }
 /*--------------------CAMBIO ELECCION DE MONEDA*/
+
+.contenedor-moneda {
+    border: 1px solid black;
+    background-color: #e9e966;
+    
+    box-shadow: inset 8px 8px 4px rgb(255 255 255 / 25%), inset -3px -3px 4px rgb(0 0 0 / 25%), 2px 2px 10px rgb(0 0 0 / 40%);
+}
+
+.botones-tres{
+    border: none;
+    border-radius: 5px;
+    background-color: #eba900;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+
+    box-shadow: 0px 2px 0px #8a6302;
+}
+
+.botones-tres:hover{
+    background-color: #ce9403;
+}
+
+.botones-tres:active{
+    box-shadow: 0px 0px 0px #b78403;
+    transform: translate(0px, 2px);
+    /* transition: 0.2s linear; */
+}
+
+.contenedor-moneda .boton-lanzar-moneda {
+    padding: 5px 4px;
+    transition: .05s linear;
+}
+
+.contenedor-moneda .boton-lanzar-moneda:disabled {
+    background-color: #eded9f;
+    border: 1px solid #c5c563;
+    box-shadow: none;
+    color: #959595;
+}
+
+.contenedor-moneda .boton-lanzar-moneda:disabled:active {
+    transform: none
+}

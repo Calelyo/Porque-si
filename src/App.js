@@ -1,5 +1,6 @@
 import './App.css';
 import Moneda from './componentes/Moneda.js';
+import StoreProvider from './store/StoreProvider';
 
 function App() {
   return (
@@ -8,7 +9,9 @@ function App() {
       </header>
 
       <div className='app-componentes'>
-        <Moneda />
+        <StoreProvider>
+            <Moneda />
+        </StoreProvider>
       </div>
     </div>
   );
