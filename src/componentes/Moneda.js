@@ -2,21 +2,30 @@ import '../estilos/moneda.css';
 import React, { useState, useEffect, useContext } from 'react';
 import { StoreContext } from '../store/StoreProvider';
 import { types } from '../store/storeReducer';
+import MonedaIcono from '../svg/MonedaIcono.js';
 
 export default function Moneda(){
-
-    const [store, dispatch] = useContext(StoreContext);
-    const { numeroDePrueba } = store;
-
+    
     const moneda = {cara: 'CARA', ceca: 'CECA', girando: 'GIRANDO'}
 
-    const [misMonedas, setMisMonedas] = useState(100);
-    const [monedasApostadas, setMonedasApostadas] = useState(0);
+    const [store, dispatch] = useContext(StoreContext);
+    const {misMonedas, monedasApostadas} = store;
+    const [monedaOculta, setMonedaoculta] = useState('')
+    //const [apostadasOcultas, setApostadasOcultas] = useState(0)
+    //↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓
+    // const [misMonedas2, setMisMonedas] = useState(100);
+    // const [monedasApostadas2, setMonedasApostadas] = useState(0);
+
     const [ultimaApuesta, setUltimaApuesta] = useState(0);
+    const [resultadoUltima, setResultadoUltima] = useState('0')
     const [miEleccionMoneda, setMiEleccionMoneda] = useState(moneda.cara);
     const [seleccion, setSeleccion] = useState(false)
     const [estadoMoneda, setEstadoMoneda] = useState(moneda.cara);
-    const [girando, setGirando] = useState(false)
+    const [girando, setGirando] = useState(false);
+    const [diferenciaUltima, setDiferenciaUltima] = useState(0);
+    const [ultimoGanado, setUltimoGanado] = useState(0);
+    const [cantidadApuesta, setCantidadApuesta] = useState(10);
+    const [apuestaElegida, setApuestaElegida] = useState([true, false, false]);
     
     
     window.addEventListener("load", () => {
@@ -30,123 +39,153 @@ export default function Moneda(){
         })
     })
 
-    function cambiarSeleccion(){
-        setSeleccion(!seleccion)
-    }
-    
-    
-    function apuestaValidaSuma(apuesta){
-        return apuesta < misMonedas;
-    }
+    function cambiarSeleccion(){setSeleccion(!seleccion)}
+    function anteriorPerdido(){return ultimoGanado===1}
+    function anteriorGanado(){return ultimoGanado===2}
+    function apuestaValidaSuma(apuesta){return apuesta < misMonedas;}
+    function apuestaValidaResta(apuesta){return apuesta > 0;}
 
-    function apuestaValidaResta(apuesta){
-        return apuesta > 0;
-    }
-
+    
     function restarApuesta(){
-        if(apuestaValidaResta(monedasApostadas)){
-            setMonedasApostadas(monedasApostadas - 10)
+        let diferencia = misMonedas - monedasApostadas
+        girarMoneda();
+        
+        if(apuestaValidaResta(monedasApostadas) && diferencia !== 0){
+            // setMonedasApostadas(monedasApostadas - 10);
+            let aRetornar = monedasApostadas - cantidadApuesta
+            return aRetornar < 0 ? 0 : aRetornar;
         }
-        // console.log(monedasApostadas)
+        else if(apuestaValidaResta(monedasApostadas) && diferencia < cantidadApuesta){
+            // ACA ESTÁ EL TEMA DE RESTAR CUANDO LA DIFERENCIA ULTIMA BLA BLA BLA
+            return monedasApostadas - diferenciaUltima;
+        }
+        else {
+            return monedasApostadas;
+        }
     }
 
     function sumarApuesta(){
-        if(apuestaValidaSuma(monedasApostadas)){
-            setMonedasApostadas(monedasApostadas + 10)
-        }
-        // console.log(monedasApostadas)
-    }
-
-
-    
-    // useEffect( () => {
-
-        
-    //     // let tiempo = setTimeout(()=>{}, 1000)
-    //     if(estadoMoneda === miEleccionMoneda){
-    //         setMisMonedas(misMonedas + monedasApostadas)
-    //         console.log('GANASTE')
-    //     } else {
-    //         setMisMonedas(misMonedas - monedasApostadas)
-    //         console.log('PERDISTE')
-    //     }
-    //     setMonedasApostadas(0)
-    //     console.log('Use Effect Moneda: ' + estadoMoneda)
-
-    //     return () => {
-    //         let azar = Math.random();
-    //         azar >= 0 && azar < 0.5 ? setEstadoMoneda(moneda.cara) : setEstadoMoneda(moneda.ceca);
-    //         console.log('EN RETURN')
-    //     }
-
-    //     // return () => {
-    //     //     clearTimeout(tiempo)
-    //     // }
-
-    // }, [girando])
-
-    function girarMoneda(){
-        let azar = Math.random();
-        azar >= 0 && azar < 0.5 ? setEstadoMoneda(moneda.cara) : setEstadoMoneda(moneda.ceca);
-    }
-
-    useEffect( () => {
-        // Este if es evitable
-        if(girando){
-            let resultado = 0;
-            if(estadoMoneda === miEleccionMoneda){
-                setMisMonedas(misMonedas + monedasApostadas)
-                resultado = monedasApostadas
-                console.log('GANASTE')
-            } else {
-                setMisMonedas(misMonedas - monedasApostadas)
-                resultado = monedasApostadas * -1
-                console.log('PERDISTE')
-            }
-            setMonedasApostadas(0)
-            setGirando(false)
-            setUltimaApuesta(resultado)
-        }
-    }, [girando, estadoMoneda, miEleccionMoneda, misMonedas, monedasApostadas])
-    // Solo "girando" es necesario, pero con los otros se evita un warning (por las dependencias de useEffect)
-
-
-    function lanzar(){
-
+        let diferencia = misMonedas - monedasApostadas
         girarMoneda();
+        setDiferenciaUltima(diferencia)
+        if(diferencia !== 0){
+            setDiferenciaUltima(diferencia)
+        }
+        if(apuestaValidaSuma(monedasApostadas) && diferencia > cantidadApuesta){
+            // setMonedasApostadas(monedasApostadas + 10);
+            return monedasApostadas + cantidadApuesta;
+        }
+        else if(apuestaValidaSuma(monedasApostadas) && diferencia < cantidadApuesta){
+            return monedasApostadas + diferencia;
+        }
+        else{
+            return monedasApostadas;
+        }
+    }
+    
+    
+    function cambiarCantidadApuesta(cantidad){
+        setCantidadApuesta(cantidad);
+        if (cantidad === 10){
+            setApuestaElegida([true, false, false]);
+        }
+        if (cantidad === 50){
+            setApuestaElegida([false, true, false]);
+        }
+        if (cantidad === 100){
+            setApuestaElegida([false, false, true]);
+        }
+    }
+    
+    function girarMoneda(){
+        // return new Promise((resolve, reject) => {
+        //     let azar = Math.random();
+        //     if (azar >= 0 && azar < 0.5) {
+        //       setEstadoMoneda(moneda.cara);
+        //       resolve(moneda.cara);
+        //     } else {
+        //       setEstadoMoneda(moneda.ceca);
+        //       reject('UPS')
+        //       resolve(moneda.ceca);
+        //     }
+        //   });
+        let azar = Math.random();
+        azar >= 0 && azar < 0.5 ? setMonedaoculta(moneda.cara) : setMonedaoculta(moneda.ceca);
+        // azar >= 0 && azar < 0.5 ? setEstadoMoneda(moneda.cara) : setEstadoMoneda(moneda.ceca);
+    }
+    
+    function lanzar(){
+        let monedasAenviar = misMonedas // lanzar();
+        // girarMoneda().then((mon)=>{ mon === miEleccionMoneda ? console.log('SI') : console.log('NO') })
+        // .then(()=>{})
 
-        setGirando(true);
+        if(monedaOculta === miEleccionMoneda){
+            monedasAenviar += monedasApostadas
+            setResultadoUltima('+'+monedasApostadas)
+            setUltimoGanado(2)
+            console.log('GANASTE')
+        } else {
+            monedasAenviar -= monedasApostadas
+            setResultadoUltima('-'+monedasApostadas)
+            setUltimoGanado(1)
+            console.log('PERDISTE')
+        }
         
-        // setTimeout(()=>{console.log('Pasó un segundo')}, 1000)
+        setEstadoMoneda(monedaOculta)
+        console.log(monedaOculta)
+        
+        return { type: types.actualizarMisMonedas, envio: monedasAenviar };
+    
+        
     }
 
     return(
         <section className='moneda-seccion' id='Moneda-Seccion'>
             <div className='contenedor-moneda'>
-                <div className='mis-monedas'>Monedas: { misMonedas } (-{ monedasApostadas })</div>
-                <div className='ultima-apuesta'>Última apuesta: { ultimaApuesta }</div>
+                <div className='mis-monedas'>
+                    <div className='contenedor-icono-moneda'>
+                        <MonedaIcono />
+                    </div>
+                    <div className='contenedor-info-mis-monedas'>
+                        { misMonedas } (-{ monedasApostadas })
+                    </div>
+                </div>
+                <div className='ultima-apuesta'>
+                    Última apuesta: <span className={`${anteriorGanado() ? "anterior-ganado" : ""} ${anteriorPerdido() ? "anterior-perdido" : ""}`}>{ resultadoUltima }</span>
+                </div>
                 <div className='apostar'>
-                    <button className='boton-moneda botones-tres boton-apuesta boton-menos' onClick={ () => { restarApuesta() } }>-</button>
+                    <button className='boton-moneda botones-tres boton-apuesta boton-menos' onClick={ () => dispatch({ type: types.actualizarApostadas, envio: restarApuesta() })}>-</button>
                     <div className='cantidad-apuesta'>{ monedasApostadas }</div>
-                    <button className='boton-moneda botones-tres boton-apuesta boton-mas' onClick={ () => { sumarApuesta() } }>+</button>
+                    <button className='boton-moneda botones-tres boton-apuesta boton-mas' onClick={ () => dispatch({ type: types.actualizarApostadas, envio: sumarApuesta() })}>+</button>
+                </div>
+                <div className='cambiar-apuesta'>
+                    <button className={`boton-apuesta boton-diez ${apuestaElegida[0] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(10)}>10</button>
+                    <button className={`boton-apuesta boton-cincuenta ${apuestaElegida[1] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(50)}>50</button>
+                    <button className={`boton-apuesta boton-cien ${apuestaElegida[2] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(100)}>100</button>
                 </div>
                 <div className='estado-moneda'>
-                    { estadoMoneda }
+                    { girando ? 'GIRANDO' : estadoMoneda }
                     <div className='elegir'>
                         <button className={`boton-moneda boton-elegir boton-cara ${seleccion ? "" : "seleccionado"}`} disabled={!seleccion} id='Boton-Cara' onClick={() => { cambiarSeleccion() }}>Cara</button>
                         <button className={`boton-moneda boton-elegir boton-ceca ${seleccion ? "seleccionado" : ""}`} disabled={seleccion} id='Boton-Ceca' onClick={() => { cambiarSeleccion() }}>Ceca</button>
                     </div>
                 </div>
                 <div className='contenedor-lanzar-moneda'>
-                    <button className='boton-moneda botones-tres boton-lanzar-moneda' onClick={ () => { lanzar() } } disabled={monedasApostadas === 0}>Lanzar</button>
+                    <button className='boton-moneda botones-tres boton-lanzar-moneda' 
+                            onClick={ () => dispatch( lanzar() ) } 
+                            disabled={monedasApostadas === 0}>
+                                Lanzar
+                    </button>
                 </div>
-
+                    {/* <img src={moneda_icono} alt='Monedas'></img> */}
+                {/*
                 <div>
                     Numero De prueba: { numeroDePrueba }
                 </div>
 
-                <button onClick={ () => dispatch({ type: types.restarPrueba, envio: numeroDePrueba-1})}>-</button>
+                 <button onClick={ () => dispatch({ type: types.restarPrueba, envio: numeroDePrueba-1})}>-</button>
                 <button onClick={ () => dispatch({ type: types.sumarPrueba, envio: numeroDePrueba+1})}>+</button>
+                 */}
             </div>
         </section>
     )

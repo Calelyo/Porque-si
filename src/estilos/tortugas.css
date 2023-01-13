@@ -1,0 +1,153 @@
+#Tortugas-Seccion{
+    display: flex   ;
+    border: solid 10px black;
+    border-radius: 40px;
+    border-color: #256a3b transparent transparent transparent;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.contenedor-tortugas{
+    border: black solid 1px;
+    width: 90vw;
+    height: 88%;
+    position: relative;
+}
+
+.contenedor-tortugas .mis-monedas{
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.contenedor-tortugas .ultima-apuesta{
+    position: absolute;
+    top: 3.1rem;
+    left: 1rem;
+}
+
+.contenedor-tortugas .apostar{
+    position: absolute;
+    display: flex;
+    top: 1rem;
+    right: 1rem;
+}
+
+.contenedor-tortugas .apostar div{
+    margin: 0 10px;
+}
+
+
+
+.cancha-tortugas{
+    /* border: solid red 1px; */
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cancha-tortugas .cancha-num{
+    /* border: solid black 1px; */
+    width: 95%;
+    margin: 0.4rem;
+    padding: 1.5rem 0;
+    background-color: #62cd84;
+}
+
+.cancha-tortugas .cancha-tortuga-tres{
+    /* border: solid black 1px; */
+    margin-bottom: 2.5rem;
+}
+
+.recorrido-num{
+    border: solid black 1px;
+    height: 100%;
+    padding: 12px;
+    position: relative;
+}
+
+.tortuga-temp{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: -10px;
+
+    left: 2%;
+    /* left: 92%; */
+    /* background-color: red; */
+}
+
+.tortuga-temp-uno{
+    background-color: red;
+}
+.tortuga-temp-dos{
+    background-color: rgb(34, 92, 16);
+}
+.tortuga-temp-tres{
+    background-color: rgb(33, 11, 95);
+}
+
+
+
+.contenedor-tortugas .contenedor-correr-tortugas{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    bottom: 1rem;
+    width: 100%;
+    height: 20px;
+}
+
+.contenedor-tortugas .boton-correr-tortugas{
+    position: absolute;
+    bottom: 0.2rem;
+    padding: 5px 4px;
+    transition: .05s linear;
+}
+
+
+.contenedor-tortugas .boton-correr-tortugas:disabled {
+    background-color: #eded9f;
+    border: 1px solid #c5c563;
+    box-shadow: none;
+    color: #959595;
+}
+
+.contenedor-tortugas .boton-correr-tortugas:disabled:active {
+    transform: none
+}
+
+.tortuga-temp.corriendo{
+    /* background-color: white; */
+    animation: correr linear 2s both;
+    /* animation-fill-mode: forwards; */
+}
+
+/* .tortuga-temp.t{
+    animation: correr linear 1.8s;
+    animation-fill-mode: forwards;
+}
+
+.tortuga-temp.o{
+    animation: correr linear 1.9s;
+    animation-fill-mode: forwards;
+}
+
+.tortuga-temp.r{
+    animation: correr linear 2s;
+    animation-fill-mode: forwards;
+} */
+
+@keyframes correr {
+    0%{
+        left: 2%;
+    }
+    100%{
+        left: 92%;
+    }
+}

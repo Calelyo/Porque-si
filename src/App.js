@@ -1,5 +1,6 @@
 import './App.css';
 import Moneda from './componentes/Moneda.js';
+import Tortugas from './componentes/Tortugas';
 import StoreProvider from './store/StoreProvider';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <div className='app-componentes'>
         <StoreProvider>
             <Moneda />
+            <Tortugas />
         </StoreProvider>
       </div>
     </div>
