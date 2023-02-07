@@ -22,10 +22,10 @@ export default function Moneda(){
     const [seleccion, setSeleccion] = useState(false)
     const [estadoMoneda, setEstadoMoneda] = useState(moneda.cara);
     const [girando, setGirando] = useState(false);
-    const [diferenciaUltima, setDiferenciaUltima] = useState(0);
+    // const [diferenciaUltima, setDiferenciaUltima] = useState(0);
     const [ultimoGanado, setUltimoGanado] = useState(0);
     const [cantidadApuesta, setCantidadApuesta] = useState(10);
-    const [apuestaElegida, setApuestaElegida] = useState([true, false, false]);
+    const [apuestaElegida, setApuestaElegida] = useState([false, true, false, false, false]);
     
     
     window.addEventListener("load", () => {
@@ -50,15 +50,15 @@ export default function Moneda(){
         let diferencia = misMonedas - monedasApostadas
         girarMoneda();
         
-        if(apuestaValidaResta(monedasApostadas) && diferencia !== 0){
+        if(apuestaValidaResta(monedasApostadas)){
             // setMonedasApostadas(monedasApostadas - 10);
             let aRetornar = monedasApostadas - cantidadApuesta
             return aRetornar < 0 ? 0 : aRetornar;
         }
-        else if(apuestaValidaResta(monedasApostadas) && diferencia < cantidadApuesta){
-            // ACA ESTÁ EL TEMA DE RESTAR CUANDO LA DIFERENCIA ULTIMA BLA BLA BLA
-            return monedasApostadas - diferenciaUltima;
-        }
+        // else if(apuestaValidaResta(monedasApostadas) && diferencia < cantidadApuesta){
+        //     // ACA ESTÁ EL TEMA DE RESTAR CUANDO LA DIFERENCIA ULTIMA BLA BLA BLA
+        //     return monedasApostadas - diferenciaUltima;
+        // }
         else {
             return monedasApostadas;
         }
@@ -67,11 +67,11 @@ export default function Moneda(){
     function sumarApuesta(){
         let diferencia = misMonedas - monedasApostadas
         girarMoneda();
-        setDiferenciaUltima(diferencia)
-        if(diferencia !== 0){
-            setDiferenciaUltima(diferencia)
-        }
-        if(apuestaValidaSuma(monedasApostadas) && diferencia > cantidadApuesta){
+        // setDiferenciaUltima(diferencia)
+        // if(diferencia !== 0){
+        //     setDiferenciaUltima(diferencia)
+        // }
+        if(apuestaValidaSuma(monedasApostadas) && diferencia >= cantidadApuesta){
             // setMonedasApostadas(monedasApostadas + 10);
             return monedasApostadas + cantidadApuesta;
         }
@@ -86,14 +86,20 @@ export default function Moneda(){
     
     function cambiarCantidadApuesta(cantidad){
         setCantidadApuesta(cantidad);
+        if (cantidad === 1){
+            setApuestaElegida([true, false, false, false, false]);
+        }
         if (cantidad === 10){
-            setApuestaElegida([true, false, false]);
+            setApuestaElegida([false, true, false,false, false]);
         }
         if (cantidad === 50){
-            setApuestaElegida([false, true, false]);
+            setApuestaElegida([false, false, true, false, false]);
         }
         if (cantidad === 100){
-            setApuestaElegida([false, false, true]);
+            setApuestaElegida([false, false, false, true, false]);
+        }
+        if (cantidad === misMonedas){
+            setApuestaElegida([false, false, false, false, true]);
         }
     }
     
@@ -159,9 +165,11 @@ export default function Moneda(){
                     <button className='boton-moneda botones-tres boton-apuesta boton-mas' onClick={ () => dispatch({ type: types.actualizarApostadas, envio: sumarApuesta() })}>+</button>
                 </div>
                 <div className='cambiar-apuesta'>
-                    <button className={`boton-apuesta boton-diez ${apuestaElegida[0] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(10)}>10</button>
-                    <button className={`boton-apuesta boton-cincuenta ${apuestaElegida[1] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(50)}>50</button>
-                    <button className={`boton-apuesta boton-cien ${apuestaElegida[2] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(100)}>100</button>
+                    <button className={`boton-apuesta boton-uno ${apuestaElegida[0] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(1)}>1</button>
+                    <button className={`boton-apuesta boton-diez ${apuestaElegida[1] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(10)}>10</button>
+                    <button className={`boton-apuesta boton-cincuenta ${apuestaElegida[2] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(50)}>50</button>
+                    <button className={`boton-apuesta boton-cien ${apuestaElegida[3] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(100)}>100</button>
+                    <button className={`boton-apuesta boton-cien ${apuestaElegida[4] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(misMonedas)}>todo</button>
                 </div>
                 <div className='estado-moneda'>
                     { girando ? 'GIRANDO' : estadoMoneda }

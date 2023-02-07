@@ -82,26 +82,34 @@
     right: 1rem;
 }
 
-.contenedor-moneda .cambiar-apuesta{
+
+/* ------ CAMBIAR CANTIDAD APUESTA */
+
+.cambiar-apuesta{
     position: absolute;
     display: flex;
     top: 3rem;
     right: 1rem;
 }
 
-.contenedor-moneda .cambiar-apuesta button{
+.cambiar-apuesta button{
     font-size: 14px;
     font-weight: bold;
     border: none;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0);
-    color: rgb(94, 94, 94);
-    transition: 0.1s linear;
+    background-color: #eba900;
+    color: #fff;
+    /* transition: 0.1s linear; */
 }
-.contenedor-moneda .cambiar-apuesta button.apuesta-elegida{
-    color: rgb(0, 0, 0);
-    transition: 0.1s linear;
+.cambiar-apuesta button.apuesta-elegida{
+    color: #fff;
+    background-color: #917f53;
+    transform: translate(0px, 2px);
+    height: 0.96rem;
+    /* transition: 0.1s linear; */
 }
+
+/* CAMBIAR CANTIDAD APUESTA ------ */
 
 
 
