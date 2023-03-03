@@ -1,0 +1,108 @@
+#Inicio-Seccion{
+    /* border: 5px solid rgb(23, 41, 139); */
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-juegos{
+    border: solid 1px red;
+    height: 90vh;
+    width: 90vw;
+    display: flex;
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(10vw,1fr)); */
+}
+
+.contenedor-juegos .contenedor-juego-individual{
+    background-color: rgb(60, 156, 89);
+    height: 40vh;
+    width: 15vw;
+    margin: 50px 25px;
+    border-radius: 30px;
+    
+    position: relative;
+    transition: 0.2s linear;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.contenedor-juegos .contenedor-juego-individual:hover{
+    background-color: rgb(74, 189, 109);
+}
+
+.contenedor-juego-moneda{
+    border: solid 1px black;
+}
+
+.contenedor-juego-tortugas{
+    border: solid 1px black;
+}
+
+
+
+.titulo-juego{
+    background-color: rgb(27, 99, 48);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+
+    position: relative;
+    z-index: 1;
+}
+
+.monedas-fondo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 86%;
+
+    position: relative;
+    z-index: 0;
+    transition: 0.2s linear;
+}
+
+.monedas-fondo:hover{
+    transform: scale(1.2);
+    filter: drop-shadow(-2px 3px 2px rgba(0, 0, 0, 0.6));
+}
+
+.monedas-fondo > *{
+    margin: 4px;
+    transition: 0.2s linear;
+}
+
+.monedas-fondo:hover > *{
+    margin: 2px;
+}
+
+/* .contenedor-juegos-gris{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(128 128 128 / 20%);
+    transform: translate(0px, -385px);
+}
+
+.contenedor-juegos-gris:hover{
+    display: none;
+} */
+
+.tortuga-fondo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 86%;
+
+    position: relative;
+    z-index: 0;
+    transition: 0.2s linear;
+}
+
+.tortuga-fondo:hover{
+    transform: scale(1.2);
+    filter: drop-shadow(-1px 2px 2px rgba(0, 0, 0, 0.65));
+}

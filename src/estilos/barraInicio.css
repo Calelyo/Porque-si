@@ -1,0 +1,11 @@
+#Barra-Inicio-Seccion{
+    position: fixed;
+    top: 0;
+}
+
+.barra-navegacion-inicio{
+    background-color: #9f3838;
+    width: 100vw;
+    height: 7vh;
+    border-radius: 0px 0px 25px 25px;
+}

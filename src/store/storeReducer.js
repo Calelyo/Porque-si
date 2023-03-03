@@ -7,14 +7,24 @@ const types = {
     actualizarMisMonedas: 'actualizar - monedas',
     // sumarApostadas: 'sumar - apostadas',
     // restarApostadas: 'restar - apostadas'
-    actualizarApostadas: 'actualizar - apostadas'
+    actualizarApostadas: 'actualizar - apostadas',
+
+    //3 ESTADOS MAS: VER INICIO, VER MONEDA, VER TORTUGA
+    verInicio: 'ver - inicio',
+    verMoneda: 'ver - moneda',
+    verTortugas: 'ver - tortugas'
 }
 
 const initialStore = {
     numeroDePrueba: 321,
 
     misMonedas: 111,
-    monedasApostadas: 0
+    monedasApostadas: 0,
+
+    // 3 ESTASDOS INICIALES MAS: INICIO: BLOCK, MONEDA: NONE, TORTUGAS: NONE
+    componenteInicio: 'flex',
+    componenteMoneda: 'none',
+    componenteTortugas: 'none'
 }
 
 const storeReducer = (state, action) => {
@@ -50,6 +60,33 @@ const storeReducer = (state, action) => {
             return{
                 ...state,
                monedasApostadas: action.envio
+            }
+
+        // 3 CASE MAS: QUE CAMBIE A BLOCK EL QUE QUIERA QUE SE VEA Y A NONE LOS OTROS
+        // CREO QUE NO TENDRÍAN QUE HABER 'ACTION.ENVIO' EN ESTOS CASOS
+
+        case types.verInicio:
+            return{
+                ...state,
+                componenteInicio: 'flex',
+                componenteMoneda: 'none',
+                componenteTortugas: 'none'
+            }
+
+        case types.verMoneda:
+            return{
+                ...state,
+                componenteInicio: 'none',
+                componenteMoneda: 'flex',
+                componenteTortugas: 'none'
+            }
+
+        case types.verTortugas:
+            return{
+                ...state,
+                componenteInicio: 'none',
+                componenteMoneda: 'none',
+                componenteTortugas: 'flex'
             }
 
         // case types.restarApostadas:

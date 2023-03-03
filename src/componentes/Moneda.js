@@ -3,13 +3,19 @@ import React, { useState, useEffect, useContext } from 'react';
 import { StoreContext } from '../store/StoreProvider';
 import { types } from '../store/storeReducer';
 import MonedaIcono from '../svg/MonedaIcono.js';
+import MonedaElegirCara from '../svg/MonedaElegirCara';
+import MonedaElegirCeca from '../svg/MonedaElegirCeca';
+import BarraJuegos from './BarraJuegos';
+import MonedaGirando from '../svg/MonedaGirando';
 
 export default function Moneda(){
     
     const moneda = {cara: 'CARA', ceca: 'CECA', girando: 'GIRANDO'}
+    const tamanioMonedasElegir = '60'
+    const tamanioMonedasGirando = '160'
 
     const [store, dispatch] = useContext(StoreContext);
-    const {misMonedas, monedasApostadas} = store;
+    const {misMonedas, monedasApostadas, componenteMoneda} = store;
     const [monedaOculta, setMonedaoculta] = useState('')
     //const [apostadasOcultas, setApostadasOcultas] = useState(0)
     //↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓
@@ -26,6 +32,7 @@ export default function Moneda(){
     const [ultimoGanado, setUltimoGanado] = useState(0);
     const [cantidadApuesta, setCantidadApuesta] = useState(10);
     const [apuestaElegida, setApuestaElegida] = useState([false, true, false, false, false]);
+    const [cara1, setCara1] = useState(false)
     
     
     window.addEventListener("load", () => {
@@ -44,7 +51,23 @@ export default function Moneda(){
     function anteriorGanado(){return ultimoGanado===2}
     function apuestaValidaSuma(apuesta){return apuesta < misMonedas;}
     function apuestaValidaResta(apuesta){return apuesta > 0;}
+    function salioCara(){return monedaOculta === moneda.cara;}
+    function salioCeca(){return monedaOculta === moneda.ceca;}
 
+    //ESTO SE VA, HAY QUE ENCONTRAR OTRA FORMA DE HACERLO, EL PROBLEMA ES QUE EL ULTIMO RESULTADO SALE MUY PRONTO
+    // function ultimoResultado(){
+    //     const ultimo = setTimeout(()=>{return resultadoUltima}, 2000);
+    //     return new Promise((res, rej) => {
+    //         setTimeout(()=>{
+    //             const ultimo = resultadoUltima;
+    //             res(ultimo)
+    //         }, 2000)
+    //     });
+    // }
+    // async function imprimirUltimoResultado(){
+    //     const resTemp = await ultimoResultado();
+    //     return resTemp;
+    // }
     
     function restarApuesta(){
         let diferencia = misMonedas - monedasApostadas
@@ -66,6 +89,7 @@ export default function Moneda(){
 
     function sumarApuesta(){
         let diferencia = misMonedas - monedasApostadas
+        console.log(salioCara())
         girarMoneda();
         // setDiferenciaUltima(diferencia)
         // if(diferencia !== 0){
@@ -119,6 +143,37 @@ export default function Moneda(){
         azar >= 0 && azar < 0.5 ? setMonedaoculta(moneda.cara) : setMonedaoculta(moneda.ceca);
         // azar >= 0 && azar < 0.5 ? setEstadoMoneda(moneda.cara) : setEstadoMoneda(moneda.ceca);
     }
+
+    const [monedaGiratoria, setMonedaGiratoria] = useState('')
+
+    function animacionGiroMoneda(){
+        // const resTemp = salioCara() ? 'salio-cara' : 'salio-ceca';
+        // let caraUno = true
+        if(salioCara() && monedaGiratoria !== 'salio-cara'){
+            // setCara1(true);
+            // return 'salio-cara';
+            setMonedaGiratoria('salio-cara')
+            console.log('SALIO CARA')
+        }
+        if(salioCara() && monedaGiratoria === 'salio-cara'){
+            setMonedaGiratoria('salio-cara2')
+            console.log('SALIO CARA2')
+        }
+        if(salioCeca() && monedaGiratoria !== 'salio-ceca'){
+            setMonedaGiratoria('salio-ceca')
+            console.log('SALIO CECA')
+        }
+        if(salioCeca() && monedaGiratoria === 'salio-ceca'){
+            setMonedaGiratoria('salio-ceca2')
+            console.log('SALIO CECA2')
+        }
+        // else{
+        //     resTemp = 'salio-ceca'
+        // }
+
+        // return resTemp;
+        // return salioCara() ? 'salio-cara' : 'salio-ceca'
+    }
     
     function lanzar(){
         let monedasAenviar = misMonedas // lanzar();
@@ -136,9 +191,10 @@ export default function Moneda(){
             setUltimoGanado(1)
             console.log('PERDISTE')
         }
-        
-        setEstadoMoneda(monedaOculta)
-        console.log(monedaOculta)
+
+        animacionGiroMoneda()
+        setEstadoMoneda(monedaOculta);
+        console.log(monedaOculta);
         
         return { type: types.actualizarMisMonedas, envio: monedasAenviar };
     
@@ -146,7 +202,8 @@ export default function Moneda(){
     }
 
     return(
-        <section className='moneda-seccion' id='Moneda-Seccion'>
+        <section className='moneda-seccion' id='Moneda-Seccion' style={{display: componenteMoneda}}>
+            <BarraJuegos />
             <div className='contenedor-moneda'>
                 <div className='mis-monedas'>
                     <div className='contenedor-icono-moneda'>
@@ -164,18 +221,27 @@ export default function Moneda(){
                     <div className='cantidad-apuesta'>{ monedasApostadas }</div>
                     <button className='boton-moneda botones-tres boton-apuesta boton-mas' onClick={ () => dispatch({ type: types.actualizarApostadas, envio: sumarApuesta() })}>+</button>
                 </div>
-                <div className='cambiar-apuesta'>
-                    <button className={`boton-apuesta boton-uno ${apuestaElegida[0] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(1)}>1</button>
-                    <button className={`boton-apuesta boton-diez ${apuestaElegida[1] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(10)}>10</button>
-                    <button className={`boton-apuesta boton-cincuenta ${apuestaElegida[2] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(50)}>50</button>
-                    <button className={`boton-apuesta boton-cien ${apuestaElegida[3] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(100)}>100</button>
-                    <button className={`boton-apuesta boton-cien ${apuestaElegida[4] ? 'apuesta-elegida' : ''}`} onClick={ () => cambiarCantidadApuesta(misMonedas)}>todo</button>
+                <div className='cambiar-apuesta-moneda'>
+                    <button className={`boton-apuesta boton-uno ${apuestaElegida[0] ? 'apuesta-elegida-moneda' : ''}`} onClick={ () => cambiarCantidadApuesta(1)}>1</button>
+                    <button className={`boton-apuesta boton-diez ${apuestaElegida[1] ? 'apuesta-elegida-moneda' : ''}`} onClick={ () => cambiarCantidadApuesta(10)}>10</button>
+                    <button className={`boton-apuesta boton-cincuenta ${apuestaElegida[2] ? 'apuesta-elegida-moneda' : ''}`} onClick={ () => cambiarCantidadApuesta(50)}>50</button>
+                    <button className={`boton-apuesta boton-cien ${apuestaElegida[3] ? 'apuesta-elegida-moneda' : ''}`} onClick={ () => cambiarCantidadApuesta(100)}>100</button>
+                    <button className={`boton-apuesta boton-cien ${apuestaElegida[4] ? 'apuesta-elegida-moneda' : ''}`} onClick={ () => cambiarCantidadApuesta(misMonedas)}>todo</button>
                 </div>
                 <div className='estado-moneda'>
-                    { girando ? 'GIRANDO' : estadoMoneda }
+                    <div className='estado-moneda-actual gira-moneda-tamanio'> {/* className='estado-moneda-actual gira-moneda-tamanio' */}
+                        {/* { girando ? 'GIRANDO' : estadoMoneda } */}
+                        <MonedaGirando id='Moneda-Giro' tamanio={tamanioMonedasGirando} className={monedaGiratoria}/>
+                    </div>
                     <div className='elegir'>
-                        <button className={`boton-moneda boton-elegir boton-cara ${seleccion ? "" : "seleccionado"}`} disabled={!seleccion} id='Boton-Cara' onClick={() => { cambiarSeleccion() }}>Cara</button>
-                        <button className={`boton-moneda boton-elegir boton-ceca ${seleccion ? "seleccionado" : ""}`} disabled={seleccion} id='Boton-Ceca' onClick={() => { cambiarSeleccion() }}>Ceca</button>
+                        <button className={`boton-moneda boton-elegir boton-cara ${seleccion ? "" : "seleccionado"}`} disabled={!seleccion} id='Boton-Cara' onClick={() => { cambiarSeleccion() }}>
+                            {/* Cara */}
+                            <MonedaElegirCara tamanio={tamanioMonedasElegir}/>
+                        </button>
+                        <button className={`boton-moneda boton-elegir boton-ceca ${seleccion ? "seleccionado" : ""}`} disabled={seleccion} id='Boton-Ceca' onClick={() => { cambiarSeleccion() }}>
+                            {/* Ceca */}
+                            <MonedaElegirCeca tamanio={tamanioMonedasElegir}/>
+                        </button>
                     </div>
                 </div>
                 <div className='contenedor-lanzar-moneda'>
