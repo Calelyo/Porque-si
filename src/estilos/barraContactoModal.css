@@ -1,0 +1,39 @@
+.modal-contacto{
+    position: fixed;
+    display: inline;
+    visibility: hidden;
+    /* top: 5rem; */
+    align-items: center;
+    justify-content: center;
+    /* z-index: 20; */
+    z-index: -1;
+    opacity: 0;
+    /* background-color: rgba(0, 0, 0, 0.8); */
+    width: 100vw;
+    height: 100vh;
+    transform: translate(0, 5rem);
+    transition: ease-in-out 0.4s;
+}
+
+.modal-contacto.modal-contacto-abierto{
+    display: flex;
+    visibility: visible;
+    z-index: 20;
+    transform: translate(0, 0rem);
+    opacity: 1;
+}
+
+.modal-contacto-caja{
+    position: absolute;
+    bottom: 0rem;
+    /* background-color: rgb(71 127 165); */
+    background-color: rgb(71 127 165);
+    width: 100vw;
+    height: 7vh;
+}
+
+@media screen and (max-width: 1367px) {
+    .modal-contacto-caja{
+        height: 11vh;
+    }
+}

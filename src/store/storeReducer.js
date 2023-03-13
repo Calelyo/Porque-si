@@ -12,19 +12,21 @@ const types = {
     //3 ESTADOS MAS: VER INICIO, VER MONEDA, VER TORTUGA
     verInicio: 'ver - inicio',
     verMoneda: 'ver - moneda',
-    verTortugas: 'ver - tortugas'
+    verTortugas: 'ver - tortugas',
+    tortugasCompradas: 'comprar - tortugas'
 }
 
 const initialStore = {
     numeroDePrueba: 321,
 
-    misMonedas: 111,
+    misMonedas: 150,
     monedasApostadas: 0,
 
     // 3 ESTASDOS INICIALES MAS: INICIO: BLOCK, MONEDA: NONE, TORTUGAS: NONE
     componenteInicio: 'flex',
     componenteMoneda: 'none',
-    componenteTortugas: 'none'
+    componenteTortugas: 'none',
+    tortugasCompradas: false
 }
 
 const storeReducer = (state, action) => {
@@ -43,12 +45,14 @@ const storeReducer = (state, action) => {
             }
         //--------
 
+        
         case types.actualizarMisMonedas:
             return{
                 ...state,
                 monedasApostadas: 0,
                 misMonedas: action.envio
             }
+
 
         // case types.restarMisMonedas:
         //     return{
@@ -87,6 +91,13 @@ const storeReducer = (state, action) => {
                 componenteInicio: 'none',
                 componenteMoneda: 'none',
                 componenteTortugas: 'flex'
+            }
+        
+        case types.tortugasCompradas:
+            return{
+                ...state,
+                tortugasCompradas: action.envioTortugas,
+                misMonedas: action.envioMonedas
             }
 
         // case types.restarApostadas:

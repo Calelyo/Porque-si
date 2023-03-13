@@ -38,6 +38,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    /* filter: blur(10px); */
+}
+.mis-monedas.monedas-tapadas::before{
+    /* background-color: rebeccapurple; */
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    /* background-color: rgb(118, 62, 151); */
+    background-color: #dda534;
+    z-index: 100;
+    /* transition: linear 0.2s; */
+    animation: taparMonedas linear 2s forwards;
+}
+@keyframes taparMonedas {
+    0%{
+        background-color: #dda534;
+        /* background-color: rgb(118, 62, 151); */
+    }
+    90%{
+        background-color: #dda534;
+        /* background-color: rgb(118, 62, 151); */
+    }
+    100%{
+        background-color: #dda53400;
+        /* background-color: rgba(118, 62, 151, 0); */
+    }
 }
 
 .contenedor-icono-moneda{
@@ -234,12 +262,12 @@
     transform: none
 }
 
-.anterior-ganado{
+.anterior-ganado-moneda{
     color: green;
     font-weight: bold;
 }
 
-.anterior-perdido{
+.anterior-perdido-moneda{
     color: red;
     font-weight: bold;
 }
@@ -436,5 +464,14 @@
     }
     100%{
         transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 1367px){
+    .contenedor-moneda{
+        width: 70vw;
+        height: 60vh;
+        position: relative;
+        top: 0;
     }
 }

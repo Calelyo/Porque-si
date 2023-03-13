@@ -1,5 +1,6 @@
 export default function FlechaAtras(props){
-    const colorFondo = '#337265';
+    // const colorFondo = '#337265';
+    const colorFondo = '#ffffff';
     const colorBordes = '#000000'
     const tamanioBordes = '0.8'
     return(
@@ -20,5 +21,5 @@ export default function FlechaAtras(props){
 }
 
 FlechaAtras.defaultProps = {
-    tamanio: '40'
+    tamanio: '30'
 }

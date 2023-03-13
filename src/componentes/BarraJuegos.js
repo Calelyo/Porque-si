@@ -13,9 +13,45 @@ export default function BarraJuegos(){
             <div className='barra-navegacion-juegos'>
                 <div className='barra-navegacion-juegos-contenido'>
                     <div className='barra-juegos-boton-atras' onClick={()=>dispatch({type: types.verInicio})}>
-                        <FlechaAtras tamanio='60'/>
+                        <FlechaAtras />
                     </div>
                 </div>
+                <div className="mejoras-barra-juegos">
+                        <div className="contenedor-mejoras-juegos">
+                            <div className="palabra-mejora-inicio palabra-mejoras-juegos">
+                                Mejoras:
+                                    <div className="mejora-ico-juegos mejora-elegida-juegos">
+                                        VACIO
+                                    </div>
+                            </div>
+                            <div className="mejoras-desplegable-juegos">
+                            <div className="palabra-mejora-inicio mejora-desplegable mejora-desplegable-uno">
+                                    Nombre1:
+                                    <div className="mejora-ico-juegos mejora-ico-juegos-uno">
+                                        VACIO1
+                                    </div>
+                                </div>
+                                <div className="palabra-mejora-inicio mejora-desplegable mejora-desplegable-dos">
+                                    Nombre2:
+                                    <div className="mejora-ico-juegos mejora-ico-juegos-dos">
+                                        VACIO2
+                                    </div>
+                                </div>
+                                <div className="palabra-mejora-inicio mejora-desplegable mejora-desplegable-tres">
+                                    Nombre3:
+                                    <div className="mejora-ico-juegos mejora-ico-juegos-tres">
+                                        VACIO3
+                                    </div>
+                                </div>
+                                <div className="palabra-mejora-inicio mejora-desplegable mejora-desplegable-cuatro">
+                                    Nombre4:
+                                    <div className="mejora-ico-juegos mejora-ico-juegos-cuatro">
+                                        VACIO4
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </section>
     )

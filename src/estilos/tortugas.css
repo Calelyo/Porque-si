@@ -20,6 +20,10 @@
     margin-bottom: 1rem;
 }
 
+.contenedor-tortugas.misterio-uno{
+    display: none;
+}
+
 .contenedor-tortugas .mis-monedas{
     position: absolute;
     top: 2rem;
@@ -115,6 +119,7 @@
     position: absolute;
     width: 100%;
     top: 0;
+    height: 9rem;
 }
 
 .cancha-tortuga-uno{
@@ -155,7 +160,7 @@
 
 .tortuga-individual{
     position: absolute;
-    top: 0;
+    top: 1rem;
     left: 2%;
     transform: rotate(90deg);
     /* transform: rotate(90deg) translate(-50%, -50%); */
@@ -256,4 +261,191 @@
     100%{
         left: 92%;
     }
+}
+
+.anterior-ganado-tortugas{
+    color: rgb(104, 230, 104);
+    font-weight: bold;
+}
+
+.anterior-perdido-tortugas{
+    color: red;
+    font-weight: bold;
+}
+
+/* .tortuga-individual.corriendo #cabeza{
+    animation: torgasMovimientoCuerpo 0.5s alternate infinite;
+} */
+.tortuga-individual.corriendo #pata1{
+    animation: torgasMovimientoPata1 1.5s alternate cubic-bezier(0.16, 0.99, 0.84, 0.83);
+}
+.tortuga-individual.corriendo #pata2{
+    animation: torgasMovimientoPata2 1.5s alternate  cubic-bezier(0.16, 0.99, 0.84, 0.83);
+}
+.tortuga-individual.corriendo #pata3{
+    animation: torgasMovimientoPata3 1.5s alternate cubic-bezier(0.16, 0.99, 0.84, 0.83);
+}
+.tortuga-individual.corriendo #pata4{
+    animation: torgasMovimientoPata4 1.5s alternate cubic-bezier(0.16, 0.99, 0.84, 0.83);
+}
+
+@keyframes torgasMovimientoPata1 {
+    0%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+    25%{
+        /* transform: rotate(0deg) */
+        transform: scale(0.98);
+    }
+    50%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+    75%{
+        /* transform: rotate(0deg) */
+        transform: scale(0.98);
+    }
+    100%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+}
+@keyframes torgasMovimientoPata2 {
+    0%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+    25%{
+        /* transform: rotate(0deg) */
+        transform: scale(0.98);
+    }
+    50%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+    75%{
+        /* transform: rotate(0deg) */
+        transform: scale(0.98);
+    }
+    100%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+}
+@keyframes torgasMovimientoPata3 {
+    0%{
+        /* transform: rotate(0deg) */
+        transform: scale(0.98);
+    }
+    25%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+    50%{
+        /* transform: rotate(0deg) */
+        transform: scale(0.98);
+    }
+    75%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+    100%{
+        /* transform: rotate(4deg) */
+        transform: scale(0.98);
+    }
+}
+@keyframes torgasMovimientoPata4 {
+    0%{
+        /* transform: rotate(0deg) */
+        transform: scale(0.98);
+    }
+    25%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+    50%{
+        /* transform: rotate(0deg) */
+        transform: scale(0.98);
+    }
+    75%{
+        /* transform: rotate(4deg) */
+        transform: scale(1.02);
+    }
+    100%{
+        /* transform: rotate(4deg) */
+        transform: scale(0.98);
+    }
+}
+
+#pata1{
+    /* transform: rotate(45deg); */
+}
+#pata2{
+    /* transform: rotate(45deg); */
+}
+#pata3{
+    /* transform: rotate(45deg); */
+}
+#pata4{
+    /* transform: rotate(45deg); */
+}
+#cola{
+    /* transform: rotate(45deg); */
+}
+#cabeza{
+    /* transform: rotate(45deg); */
+}
+
+@media screen and (max-width: 1367px){
+    .contenedor-tortugas{
+        height: 75%;
+        margin-bottom: -3rem;
+    }
+
+    .imagen-pista{
+        height: 5rem;
+    }
+
+    .cancha-tortugas .cancha-num{
+        margin: 3rem;
+    }
+
+    .tortuga-individual{
+        top: -0.8rem;
+        transform: rotate(90deg) scale(0.8);
+    }
+
+    .contenedor-elegir-tortugas{
+        bottom: 2rem;
+        transform: scale(0.4);
+    }
+}
+
+.trampa-tortugas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.trampa-tortugas .texto-tortugas-trampa{
+    font-size: 2rem;
+    text-align: center;
+}
+.trampa-tortugas .boton-tortugas-trampa{
+    font-size: 1.4rem;
+    margin: 50px;
+    width: 25%;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.trampa-tortugas .boton-tortugas-trampa span{
+    position: relative;
+    top: -10px;
+    font-size: 0.8rem;
+    color: rgb(148, 148, 0);
+}
+
+.trampa-tortugas.tortugas-sin-trampa{
+    display: none;
 }

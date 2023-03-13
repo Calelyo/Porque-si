@@ -1,5 +1,6 @@
 export default function Info(props){
-    const colorFondo = '#337265';
+    // const colorFondo = '#337265';
+    const colorFondo = '#ffffff';
     const colorBordes = '#000000'
     const tamanioBordes = '0.8'
 
@@ -25,5 +26,5 @@ export default function Info(props){
 }
 
 Info.defaultProps = {
-    tamanio: '40'
+    tamanio: '30'
 }

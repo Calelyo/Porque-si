@@ -1,3 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,400;1,500&display=swap');
+
 .App{
     /* background: rgb(65 169 97); */
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.advertencia-titulo{
+    position: absolute;
+    top: 4rem;
+    font-size: 2rem;
+}
+
+.advertencia-texto{
+    width: 82%;
+    position: relative;
+    top: 0.5rem;
+}
+/* 
+.advertencia-texto span{
+    color: rgb(224, 1, 1);
+    font-weight: 500;
+} */
+
+@media screen and (max-width: 1367px) {
+    .advertencia-titulo{
+        top: 3rem;
+    }
+
+    .advertencia-texto{
+        width: 82%;
+        position: relative;
+        top: 2rem;
+    }
 }

@@ -33,6 +33,7 @@ export default function Moneda(){
     const [cantidadApuesta, setCantidadApuesta] = useState(10);
     const [apuestaElegida, setApuestaElegida] = useState([false, true, false, false, false]);
     const [cara1, setCara1] = useState(false)
+    const [monedasTapadas, setMonedasTapadas] = useState(false) 
     
     
     window.addEventListener("load", () => {
@@ -182,30 +183,34 @@ export default function Moneda(){
 
         if(monedaOculta === miEleccionMoneda){
             monedasAenviar += monedasApostadas
-            setResultadoUltima('+'+monedasApostadas)
-            setUltimoGanado(2)
+            // setResultadoUltima('+'+monedasApostadas)
+            // setUltimoGanado(2)
+            setTimeout(()=>setResultadoUltima('+'+monedasApostadas), 2000)
+            setTimeout(()=>setUltimoGanado(2), 2000)
             console.log('GANASTE')
         } else {
             monedasAenviar -= monedasApostadas
-            setResultadoUltima('-'+monedasApostadas)
-            setUltimoGanado(1)
+            // setResultadoUltima('-'+monedasApostadas)
+            // setUltimoGanado(1)
+            setTimeout(()=>setResultadoUltima('-'+monedasApostadas), 2000)
+            setTimeout(()=>setUltimoGanado(1), 2000)
             console.log('PERDISTE')
         }
 
+        setMonedasTapadas(true)
+        setTimeout(()=>setMonedasTapadas(false), 2000)
         animacionGiroMoneda()
         setEstadoMoneda(monedaOculta);
         console.log(monedaOculta);
         
         return { type: types.actualizarMisMonedas, envio: monedasAenviar };
-    
-        
     }
 
     return(
         <section className='moneda-seccion' id='Moneda-Seccion' style={{display: componenteMoneda}}>
             <BarraJuegos />
             <div className='contenedor-moneda'>
-                <div className='mis-monedas'>
+                <div className={`mis-monedas ${monedasTapadas && `monedas-tapadas`}`}>
                     <div className='contenedor-icono-moneda'>
                         <MonedaIcono />
                     </div>
@@ -214,7 +219,7 @@ export default function Moneda(){
                     </div>
                 </div>
                 <div className='ultima-apuesta'>
-                    Última apuesta: <span className={`${anteriorGanado() ? "anterior-ganado" : ""} ${anteriorPerdido() ? "anterior-perdido" : ""}`}>{ resultadoUltima }</span>
+                    Última apuesta: <span className={`${anteriorGanado() ? "anterior-ganado-moneda" : ""} ${anteriorPerdido() ? "anterior-perdido-moneda" : ""}`}>{ resultadoUltima }</span>
                 </div>
                 <div className='apostar'>
                     <button className='boton-moneda botones-tres boton-apuesta boton-menos' onClick={ () => dispatch({ type: types.actualizarApostadas, envio: restarApuesta() })}>-</button>

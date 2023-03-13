@@ -1,0 +1,71 @@
+.monedas-justas-modal{
+    position: fixed;
+    display: none;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+}
+
+.monedas-justas-modal.modal-monedas-justas-abierto{
+    display: flex;
+}
+
+.monedas-justas-modal-cerrar{
+    position: absolute;
+    cursor: pointer;
+    right: 3rem;
+    top: 1.5rem;
+}
+
+.mondas-justas-modal-caja{
+    color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    height: 35vh;
+    border-radius: 20px;
+    /* background-color: rgb(141, 179, 8); */
+    background-color: #ac7a1f;
+    box-shadow: inset 4px 4px 7px 0px rgb(255 255 255 / 25%), inset -3px -3px 4px rgb(0 0 0 / 25%), 2px 2px 10px rgb(0 0 0 / 40%);
+    line-height: 22px;
+}
+
+.monedas-justas-titulo-modal{
+    font-size: 2rem;
+    position: relative;
+    top: -1.3rem;
+}
+
+.monedas-justas-modal-texto{
+    width: 80%;
+}
+
+.gana-una-mas{
+    background-color: rgb(156, 0, 0);
+    text-align: center;
+    /* height: 25px; */
+}
+
+.monedas-justas-modal-texto span{
+    color: yellow;
+}
+
+@media screen and (max-width: 1367px){
+    .mondas-justas-modal-caja{
+        width: 50vw;
+        height: 60vh;
+    }
+
+    .monedas-justas-titulo-modal{
+        font-size: 2rem;
+        position: relative;
+        top: -1.8rem;
+    }
+}

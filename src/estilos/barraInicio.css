@@ -1,11 +1,301 @@
+:root{
+    /* --color-barra-inicio: #9f3838; */
+    /* --color-mejoras-inicio: #ad3d3d;
+    --color-mejoras-inicio-hover: #c44747; */
+    /* --color-barra-inicio: #013e66; */
+    --color-barra-inicio: #477fa5;
+    --color-mejoras-inicio: #5497c4;
+    --color-mejoras-inicio-hover: #61aadb;
+}
+
 #Barra-Inicio-Seccion{
     position: fixed;
     top: 0;
+    z-index: 10;
 }
 
 .barra-navegacion-inicio{
-    background-color: #9f3838;
+    background-color: var(--color-barra-inicio);
     width: 100vw;
     height: 7vh;
-    border-radius: 0px 0px 25px 25px;
+    /* border-radius: 0px 0px 25px 25px; */
+    overflow: hidden;
+}
+
+.barra-inicio-boton-info{
+    display: flex;
+    position: absolute;
+    right: 5rem;
+    top: 1.2rem;
+
+    cursor: pointer;
+    transition: linear 0.2s;
+    filter: drop-shadow(-1px 1px 2px rgba(0, 0, 0, 0.5));
+}
+.barra-inicio-boton-info:hover{
+    transform: scale(1.05);
+    filter: drop-shadow(-1px 1px 2px black);
+}
+
+.monedas-en-inicio{
+    /* border: solid black; */
+    display: flex;
+    position: absolute;
+    top: 1.2rem;
+    /* left: 2rem; */
+    left: 5rem;
+    /* background-color: rgb(225 127 34); */
+    background-color: rgb(227 224 221);
+    padding: 5px 9px;
+    border-radius: 5px;
+}
+
+.contenedor-icono-moneda-inicio{
+    display: flex;
+}
+
+.contenedor-mis-monedas-inicio{
+    margin-left: 8px;
+}
+
+.nombre-juego{
+    /* position: absolute; */
+    position: relative;
+    top: 5px;
+    display: flex;
+    justify-content: center;
+    /* padding-top: 1.2rem; */
+    padding-top: -1rem;
+    /* text-align: center; */
+    font-size: 3rem;
+    font-weight: 500;
+    font-variant: normal;
+    color: #f2ff30;
+    text-shadow: -5px 4px 5px #000000;
+    /* text-decoration: underline; */
+    /* text-decoration-color: #f2ff30; */
+
+    /* -webkit-text-fill-color: black; */
+    -webkit-text-stroke: 2px black;
+}
+
+.nombre-juego i{
+    cursor: none;
+}
+.nombre-juego i:hover{
+    animation: nombreAnimacion cubic-bezier(0.57, 0.04, 0, 1.7) 0.8s
+} 
+@keyframes nombreAnimacion {
+    0%{
+        transform: translate(0, 0px);
+    }
+    40%{
+        transform: translate(0, 80px);
+    }
+    41%{
+        transform: translate(2000px, 80px);
+    }
+    42%{
+        transform: translate(2000px, -80px);
+    } 
+    43%{
+        transform: translate(0px, -80px);
+    }   
+    100%{
+        transform: translate(0, 0px);
+    }    
+} 
+/* .nombre-juego i{
+    cursor: none;
+}
+.nombre-juego i:hover{
+    animation: nombreAnimacion linear 2s alternate infinite;
+} */
+/* @keyframes nombreAnimacion {0%{filter: blur(0px)}50%{filter: blur(10px)}75%{filter: blur(0px)}100%{filter: blur(0px)}} */
+
+
+.contenedor-mejoras-inicio{
+    color: white;
+    position: absolute;
+    right: 20rem;
+    top: 0rem;
+    /* background-color: antiquewhite; */
+    /* background-color: var(--color-mejoras-inicio); */
+    background-color: var(--color-mejoras-inicio);
+
+    box-sizing: border-box;
+    overflow: hidden;
+    height: 7vh;
+    transition: 0.2s linear;
+    cursor: pointer;
+    /* border-radius: 10px; */
+}
+
+.palabra-mejoras-inicio{
+    border-bottom: 3px solid var(--color-mejoras-inicio-hover);
+}
+
+.palabra-mejora{
+    display: flex;
+    /* background-color: aqua; */
+    /* margin: 22px 20px 45px; */
+    padding: 25px 20px 22px;
+}
+
+.mejora-ico-inicio{
+    /* background-color: aqua; */
+    margin-left: 5px;
+}
+
+.contenedor-mejoras-inicio:hover{
+    height: 36vh;
+}
+
+.palabra-mejora.mejora-desplegable:hover{
+    background-color:var(--color-mejoras-inicio-hover);
+}
+
+.mejora-desplegable-cuatro{
+    padding-bottom: 2rem;
+}
+
+
+
+/* MODAL */
+.contenido-modal-informacion{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 85%;
+    height: 85%;
+    /* margin: auto; */
+    color: white;
+    /* border: solid 1px black; */
+    align-items: center;
+}
+
+.descripcion-juego{
+    /* border: solid 1px rgb(228, 10, 10); */
+}
+.descripcion-juego i{
+    /* border: solid 1px rgb(228, 10, 10); */
+    color: #f2ff30;
+}
+
+.desafios-modal-informacion{
+    /* border: solid 1px rgb(228, 10, 10); */
+}
+
+.desafios-modal-informacion i{
+    color: #ff9430;
+}
+
+.desafios-modal-informacion a{
+    text-decoration: none;
+    position: relative;
+}
+.desafios-modal-informacion a::before{
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    width: 0%;
+    height: 1px;
+    background-color: #ffd28e;
+    transition: 0.2s linear;
+}
+.desafios-modal-informacion a:hover::before{
+    content: "";
+    left: 0;
+    width: 100%;
+}
+
+.desafios-modal-informacion ul{
+    padding: 0;
+}
+
+.desafios-modal-informacion li{
+    list-style-position: inside;
+    margin-left: 10px;
+    margin-top: 6px;
+}
+.desafios-modal-informacion li:first-child{
+    background-color: #476eeb;
+    padding: 1rem 0;
+}
+.desafios-modal-informacion li:last-child{
+    background-color: #476eeb;
+    padding: 1rem 0;
+}
+
+.herramientas-modal-informacion{
+    /* border: solid 1px rgb(228, 10, 10); */
+}
+
+.herramientas-modal-informacion ul{
+    margin: 0;
+    /* border: 1px solid white; */
+    display: flex;
+    flex-flow: row wrap;
+    list-style: circle;
+    /* flex-direction: row; */
+    justify-content: center;
+    width: 80%;
+}
+
+.herramientas-modal-informacion li{
+    /* margin: 20px 20px 20px 20px; */
+    margin: 18px 20px 10px 20px;
+}
+
+/* .textos-modal-informacion:first-child{
+    margin: 0px 0px 50px 0px;
+}
+.textos-modal-informacion:last-child{
+    margin: 50px 0px 0px 0px;
+}
+.textos-modal-informacion{
+    margin: 0px 0px 0px 0px;
+} */
+
+@media screen and (max-width: 1367px){
+    .barra-navegacion-inicio{
+        height: 11vh;
+    }
+
+    .contenedor-mejoras-inicio{
+        right: 18vw;
+    }
+
+    .contenedor-mejoras-inicio{
+        height: 11vh;
+    }
+
+    .palabra-mejora{
+        padding: 31px 20px 22px;
+    }
+
+    .contenedor-mejoras-inicio:hover{
+        height: 56vh;
+    }
+
+    .contenido-modal-informacion{
+        font-size: 0.9rem;
+        width: 95%;
+        height: 90%;
+    }
+    
+    .contenedor-juegos .contenedor-juego-individual{
+        height: 50vh;
+        width: 16vw;
+        margin: 76px 33px;
+    }
+    
+    .tortuga-fondo{
+        transform: scale(0.8);
+    }
+    
+    .monedas-fondo{
+        transform: scale(0.9);
+    }
 }
