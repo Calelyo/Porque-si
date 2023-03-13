@@ -14,7 +14,6 @@
     background-color: var(--color-barra-juegos);
     width: 100vw;
     height: 7vh;
-    /* border-radius: 0px 0px 25px 25px; */
 }
 
 .barra-navegacion-juegos-contenido{
@@ -44,11 +43,7 @@
     color: white;
     z-index: 5;
     right: 20rem;
-    top: 0rem;
-    /* border-radius: 0px 0px 15px 15px; */
-    /* background-color: antiquewhite; */
-    /* background-color: var(--color-mejoras-inicio); */
-    background-color: var(--color-mejoras-juegos);
+    top: 0rem;background-color: var(--color-mejoras-juegos);
 
     box-sizing: border-box;
     overflow: hidden;
@@ -63,13 +58,10 @@
 
 .palabra-mejora-inicio{
     display: flex;
-    /* background-color: aqua; */
-    /* margin: 22px 20px 45px; */
     padding: 25px 20px 22px;
 }
 
 .mejora-ico-juegos{
-    /* background-color: aqua; */
     margin-left: 5px;
 }
 

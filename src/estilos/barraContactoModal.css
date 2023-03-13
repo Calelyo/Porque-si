@@ -2,10 +2,8 @@
     position: fixed;
     display: inline;
     visibility: hidden;
-    /* top: 5rem; */
     align-items: center;
     justify-content: center;
-    /* z-index: 20; */
     z-index: -1;
     opacity: 0;
     /* background-color: rgba(0, 0, 0, 0.8); */
@@ -26,7 +24,6 @@
 .modal-contacto-caja{
     position: absolute;
     bottom: 0rem;
-    /* background-color: rgb(71 127 165); */
     background-color: rgb(71 127 165);
     width: 100vw;
     height: 7vh;

@@ -13,7 +13,7 @@ export default function MonedasJustasModal( { children, modalAbierto, cerrarModa
                     Monedas justas
                 </div>
                 <div className='monedas-justas-modal-texto'>
-                    Tenés las monedas justas, y todavía no está implementado el sistema de prestamos, por lo que no vas a poder seguir jugando.<br/>
+                    Tenés las monedas justas, y todavía no está implementado el sistema de préstamos, por lo que no vas a poder seguir jugando.<br/>
                     <div className='gana-una-mas'>Ganá por lo menos <span>1 moneda</span> más para poder comprar.</div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import '../estilos/moneda.css';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { StoreContext } from '../store/StoreProvider';
 import { types } from '../store/storeReducer';
 import MonedaIcono from '../svg/MonedaIcono.js';
@@ -16,24 +16,19 @@ export default function Moneda(){
 
     const [store, dispatch] = useContext(StoreContext);
     const {misMonedas, monedasApostadas, componenteMoneda} = store;
-    const [monedaOculta, setMonedaoculta] = useState('')
-    //const [apostadasOcultas, setApostadasOcultas] = useState(0)
-    //↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓↑↓
-    // const [misMonedas2, setMisMonedas] = useState(100);
-    // const [monedasApostadas2, setMonedasApostadas] = useState(0);
-
-    const [ultimaApuesta, setUltimaApuesta] = useState(0);
-    const [resultadoUltima, setResultadoUltima] = useState('0')
+    
     const [miEleccionMoneda, setMiEleccionMoneda] = useState(moneda.cara);
     const [seleccion, setSeleccion] = useState(false)
+    const [resultadoUltima, setResultadoUltima] = useState('0')
     const [estadoMoneda, setEstadoMoneda] = useState(moneda.cara);
-    const [girando, setGirando] = useState(false);
-    // const [diferenciaUltima, setDiferenciaUltima] = useState(0);
+    const [monedaOculta, setMonedaoculta] = useState('');
+    // const [girando, setGirando] = useState(false);
+    
     const [ultimoGanado, setUltimoGanado] = useState(0);
     const [cantidadApuesta, setCantidadApuesta] = useState(10);
     const [apuestaElegida, setApuestaElegida] = useState([false, true, false, false, false]);
-    const [cara1, setCara1] = useState(false)
-    const [monedasTapadas, setMonedasTapadas] = useState(false) 
+    const [monedasTapadas, setMonedasTapadas] = useState(false);
+    const [monedaGiratoria, setMonedaGiratoria] = useState('');
     
     
     window.addEventListener("load", () => {
@@ -47,42 +42,23 @@ export default function Moneda(){
         })
     })
 
-    function cambiarSeleccion(){setSeleccion(!seleccion)}
+    function cambiarSeleccion(){setSeleccion(!seleccion); return { type: types.actualizarApostadas, envio: 0}}
     function anteriorPerdido(){return ultimoGanado===1}
     function anteriorGanado(){return ultimoGanado===2}
     function apuestaValidaSuma(apuesta){return apuesta < misMonedas;}
     function apuestaValidaResta(apuesta){return apuesta > 0;}
     function salioCara(){return monedaOculta === moneda.cara;}
     function salioCeca(){return monedaOculta === moneda.ceca;}
-
-    //ESTO SE VA, HAY QUE ENCONTRAR OTRA FORMA DE HACERLO, EL PROBLEMA ES QUE EL ULTIMO RESULTADO SALE MUY PRONTO
-    // function ultimoResultado(){
-    //     const ultimo = setTimeout(()=>{return resultadoUltima}, 2000);
-    //     return new Promise((res, rej) => {
-    //         setTimeout(()=>{
-    //             const ultimo = resultadoUltima;
-    //             res(ultimo)
-    //         }, 2000)
-    //     });
-    // }
-    // async function imprimirUltimoResultado(){
-    //     const resTemp = await ultimoResultado();
-    //     return resTemp;
-    // }
+    
     
     function restarApuesta(){
-        let diferencia = misMonedas - monedasApostadas
         girarMoneda();
         
         if(apuestaValidaResta(monedasApostadas)){
-            // setMonedasApostadas(monedasApostadas - 10);
             let aRetornar = monedasApostadas - cantidadApuesta
             return aRetornar < 0 ? 0 : aRetornar;
         }
-        // else if(apuestaValidaResta(monedasApostadas) && diferencia < cantidadApuesta){
-        //     // ACA ESTÁ EL TEMA DE RESTAR CUANDO LA DIFERENCIA ULTIMA BLA BLA BLA
-        //     return monedasApostadas - diferenciaUltima;
-        // }
+        
         else {
             return monedasApostadas;
         }
@@ -90,14 +66,9 @@ export default function Moneda(){
 
     function sumarApuesta(){
         let diferencia = misMonedas - monedasApostadas
-        console.log(salioCara())
         girarMoneda();
-        // setDiferenciaUltima(diferencia)
-        // if(diferencia !== 0){
-        //     setDiferenciaUltima(diferencia)
-        // }
+        
         if(apuestaValidaSuma(monedasApostadas) && diferencia >= cantidadApuesta){
-            // setMonedasApostadas(monedasApostadas + 10);
             return monedasApostadas + cantidadApuesta;
         }
         else if(apuestaValidaSuma(monedasApostadas) && diferencia < cantidadApuesta){
@@ -129,79 +100,46 @@ export default function Moneda(){
     }
     
     function girarMoneda(){
-        // return new Promise((resolve, reject) => {
-        //     let azar = Math.random();
-        //     if (azar >= 0 && azar < 0.5) {
-        //       setEstadoMoneda(moneda.cara);
-        //       resolve(moneda.cara);
-        //     } else {
-        //       setEstadoMoneda(moneda.ceca);
-        //       reject('UPS')
-        //       resolve(moneda.ceca);
-        //     }
-        //   });
         let azar = Math.random();
         azar >= 0 && azar < 0.5 ? setMonedaoculta(moneda.cara) : setMonedaoculta(moneda.ceca);
-        // azar >= 0 && azar < 0.5 ? setEstadoMoneda(moneda.cara) : setEstadoMoneda(moneda.ceca);
+        if(azar === 'no warning'){
+            azar = estadoMoneda;
+        }
     }
 
-    const [monedaGiratoria, setMonedaGiratoria] = useState('')
-
     function animacionGiroMoneda(){
-        // const resTemp = salioCara() ? 'salio-cara' : 'salio-ceca';
-        // let caraUno = true
+        
         if(salioCara() && monedaGiratoria !== 'salio-cara'){
-            // setCara1(true);
-            // return 'salio-cara';
             setMonedaGiratoria('salio-cara')
-            console.log('SALIO CARA')
         }
         if(salioCara() && monedaGiratoria === 'salio-cara'){
             setMonedaGiratoria('salio-cara2')
-            console.log('SALIO CARA2')
         }
         if(salioCeca() && monedaGiratoria !== 'salio-ceca'){
             setMonedaGiratoria('salio-ceca')
-            console.log('SALIO CECA')
         }
         if(salioCeca() && monedaGiratoria === 'salio-ceca'){
             setMonedaGiratoria('salio-ceca2')
-            console.log('SALIO CECA2')
         }
-        // else{
-        //     resTemp = 'salio-ceca'
-        // }
-
-        // return resTemp;
-        // return salioCara() ? 'salio-cara' : 'salio-ceca'
     }
     
     function lanzar(){
-        let monedasAenviar = misMonedas // lanzar();
-        // girarMoneda().then((mon)=>{ mon === miEleccionMoneda ? console.log('SI') : console.log('NO') })
-        // .then(()=>{})
-
+        let monedasAenviar = misMonedas;
+        
         if(monedaOculta === miEleccionMoneda){
             monedasAenviar += monedasApostadas
-            // setResultadoUltima('+'+monedasApostadas)
-            // setUltimoGanado(2)
             setTimeout(()=>setResultadoUltima('+'+monedasApostadas), 2000)
             setTimeout(()=>setUltimoGanado(2), 2000)
-            console.log('GANASTE')
         } else {
             monedasAenviar -= monedasApostadas
-            // setResultadoUltima('-'+monedasApostadas)
-            // setUltimoGanado(1)
             setTimeout(()=>setResultadoUltima('-'+monedasApostadas), 2000)
             setTimeout(()=>setUltimoGanado(1), 2000)
-            console.log('PERDISTE')
         }
 
         setMonedasTapadas(true)
         setTimeout(()=>setMonedasTapadas(false), 2000)
         animacionGiroMoneda()
         setEstadoMoneda(monedaOculta);
-        console.log(monedaOculta);
         
         return { type: types.actualizarMisMonedas, envio: monedasAenviar };
     }
@@ -234,16 +172,16 @@ export default function Moneda(){
                     <button className={`boton-apuesta boton-cien ${apuestaElegida[4] ? 'apuesta-elegida-moneda' : ''}`} onClick={ () => cambiarCantidadApuesta(misMonedas)}>todo</button>
                 </div>
                 <div className='estado-moneda'>
-                    <div className='estado-moneda-actual gira-moneda-tamanio'> {/* className='estado-moneda-actual gira-moneda-tamanio' */}
+                    <div className='estado-moneda-actual gira-moneda-tamanio'>
                         {/* { girando ? 'GIRANDO' : estadoMoneda } */}
                         <MonedaGirando id='Moneda-Giro' tamanio={tamanioMonedasGirando} className={monedaGiratoria}/>
                     </div>
                     <div className='elegir'>
-                        <button className={`boton-moneda boton-elegir boton-cara ${seleccion ? "" : "seleccionado"}`} disabled={!seleccion} id='Boton-Cara' onClick={() => { cambiarSeleccion() }}>
+                        <button className={`boton-moneda boton-elegir boton-cara ${seleccion ? "" : "seleccionado"}`} disabled={!seleccion} id='Boton-Cara' onClick={() => dispatch(cambiarSeleccion())}>
                             {/* Cara */}
                             <MonedaElegirCara tamanio={tamanioMonedasElegir}/>
                         </button>
-                        <button className={`boton-moneda boton-elegir boton-ceca ${seleccion ? "seleccionado" : ""}`} disabled={seleccion} id='Boton-Ceca' onClick={() => { cambiarSeleccion() }}>
+                        <button className={`boton-moneda boton-elegir boton-ceca ${seleccion ? "seleccionado" : ""}`} disabled={seleccion} id='Boton-Ceca' onClick={() => dispatch(cambiarSeleccion())}>
                             {/* Ceca */}
                             <MonedaElegirCeca tamanio={tamanioMonedasElegir}/>
                         </button>
@@ -256,15 +194,7 @@ export default function Moneda(){
                                 Lanzar
                     </button>
                 </div>
-                    {/* <img src={moneda_icono} alt='Monedas'></img> */}
-                {/*
-                <div>
-                    Numero De prueba: { numeroDePrueba }
-                </div>
-
-                 <button onClick={ () => dispatch({ type: types.restarPrueba, envio: numeroDePrueba-1})}>-</button>
-                <button onClick={ () => dispatch({ type: types.sumarPrueba, envio: numeroDePrueba+1})}>+</button>
-                 */}
+                
             </div>
         </section>
     )

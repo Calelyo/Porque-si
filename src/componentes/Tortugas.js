@@ -19,12 +19,11 @@ export default function Tortugas(){
     const [store, dispatch] = useContext(StoreContext);
     const { misMonedas, monedasApostadas, componenteTortugas, tortugasCompradas } = store;
     const [ultimoGanado, setUltimoGanado] = useState(0)
-    // const [diferenciaUltima, setDiferenciaUltima] = useState(0);
+    
     const [resultadoUltima, setResultadoUltima] = useState('0')
     const [cantidadApuesta, setCantidadApuesta] = useState(10);
     const [apuestaElegida, setApuestaElegida] = useState([false, true, false, false, false]);
-    const [tortugaElegida, setTortugaElegida] = useState([true, false, false])
-    const [tortugaGanadora, setTortugaGlegida] = useState([false, false, false])
+    
     const [velocidadTotugaGanadora, setVelocidadTotugaGanadora] = useState(0)
     const [monedasTapadas, setMonedasTapadas] = useState(false) 
     const [modalAbiertoMonedasJustas, abrirModalMonedasJustas, cerrarModalMonedasJustas] = useModal(false)
@@ -63,18 +62,11 @@ export default function Tortugas(){
     function apuestaValidaResta(apuesta){return apuesta > 0;}
 
     function restarApuesta(){
-        let diferencia = misMonedas - monedasApostadas
-        //                  CAMBIAR CUAL TORTUGA GANA*****
         
         if(apuestaValidaResta(monedasApostadas)){
-            // setMonedasApostadas(monedasApostadas - 10);
             let aRetornar = monedasApostadas - cantidadApuesta
             return aRetornar < 0 ? 0 : aRetornar;
         }
-        // else if(apuestaValidaResta(monedasApostadas) && diferencia < cantidadApuesta){
-        //     // ACA ESTÁ EL TEMA DE RESTAR CUANDO LA DIFERENCIA ULTIMA BLA BLA BLA
-        //     return monedasApostadas - diferenciaUltima;
-        // }
         else {
             return monedasApostadas;
         }
@@ -82,55 +74,25 @@ export default function Tortugas(){
 
     function sumarApuesta(){
         let diferencia = misMonedas - monedasApostadas
-        //                  CAMBIAR CUAL TORTUGA GANA*****
-
-        // TODO ESTO SE TIENE QUE EJECUTAR EN OTRO LADO (en sumar apuesta quizá) 
-        // DESDE ACÁ ---------------------------------------
+        
         const velocidades = [generarVelocidad(1.7,1.75), generarVelocidad(1.8,1.85), (generarVelocidad(1.9,1.95))];
         // FUNCIONA PERO REPITE VELOCIDADES 
         // const velocidad1 = velocidades[Math.floor(Math.random() * velocidades.length)];
         // const velocidad2 = velocidades[Math.floor(Math.random() * velocidades.length)];
         // const velocidad3 = velocidades[Math.floor(Math.random() * velocidades.length)];
         const velocidadesNumericas = velocidades.map(velocidad => parseFloat(velocidad));
-        const tortugaGanadora = Math.min(...velocidadesNumericas); // ESTO CAPAZ QUE TENGA QUE SETEAR UNA VARIABLE GENERAL DEL COMPONENTE
+        const tortugaGanadora = Math.min(...velocidadesNumericas);
         setVelocidadTotugaGanadora(tortugaGanadora)
 
         const velocidad1 = velocidades.splice(Math.floor(Math.random() * velocidades.length), 1)[0];
         const velocidad2 = velocidades.splice(Math.floor(Math.random() * velocidades.length), 1)[0];
         const velocidad3 = velocidades[0];
 
-        // console.log(velocidad1)
-        // console.log(velocidad2)
-        // console.log(velocidad3)
-        // console.log('GANADORA ' + tortugaGanadora)
-        
-        // GENERAR VELOCIDAD TIENE QUE CAMBIAR CUANDO SUMAS APUESTA
-        // ACA TIENE QUE CAMBIAR LA TORTUGA GANADORA
-        // setVelocidadT1(generarVelocidad(1.7,1.75)+'s')
-        // setVelocidadT2(generarVelocidad(1.8,1.85)+'s')
-        // setVelocidadT3(generarVelocidad(1.9,1.95)+'s')
         setVelocidadT1(velocidad1+'s')
         setVelocidadT2(velocidad2+'s')
         setVelocidadT3(velocidad3+'s')
-
-        // setTortugas(tortugas.map(tortugaMap => {
-        //     if (tortugaMap.id === 0) {
-        //       return {...tortugaMap, velocidad: velocidadT1};
-        //     } else if (tortugaMap.id === 1) {
-        //       return {...tortugaMap, velocidad: velocidadT2};
-        //     } else {
-        //       return {...tortugaMap, velocidad: velocidadT3};
-        //     }
-        //   }));
-
-        // --------------------------------------- HASTA ACA
         
-        // setDiferenciaUltima(diferencia)
-        // if(diferencia !== 0){
-        //     setDiferenciaUltima(diferencia)
-        // }
         if(apuestaValidaSuma(monedasApostadas) && diferencia >= cantidadApuesta){
-            // setMonedasApostadas(monedasApostadas + 10);
             return monedasApostadas + cantidadApuesta;
         }
         else if(apuestaValidaSuma(monedasApostadas) && diferencia < cantidadApuesta){
@@ -168,20 +130,9 @@ export default function Tortugas(){
               return {...tortugaMap, elegida: false};
             }
           }));
-
-        // if(tortuga === 0){
-        //     setTortugaElegida([true, false, false])
-        // }
-        // if(tortuga === 1){
-        //     setTortugaElegida([false, true, false])
-        // }
-        // if(tortuga === 2){
-        //     setTortugaElegida([false, false, true])
-        // }
-    }
+        }
 
     function generarVelocidad(min, max) {
-        // return Math.floor(Math.random() * (max - min + 1) + min);
         return Math.random() * (max - min) + min;
       }
     
@@ -208,75 +159,29 @@ export default function Tortugas(){
             };
           });
         });
-      }, [velocidadT1, velocidadT2, velocidadT3]);
+      }, [velocidadT1, velocidadT2, velocidadT3, velocidadTotugaGanadora]);
 
     function correr(){
-        // console.log('vel1: ' + generarVelocidad(1.7,1.75))
-        // console.log('vel2: ' + generarVelocidad(1.8,1.85))
-        // console.log('vel3: ' + generarVelocidad(1.9,1.95))
-
         let monedasAenviar = misMonedas-monedasApostadas;
         let tortugaGanadora = {elegida: false};
-                // let tortugaGanadora = tortugas.find(tortuga => tortuga.elegida && tortuga.ganadora);
-                // if (tortugaGanadora) {
-                //     monedasAenviar += monedasApostadas * 3;
-                //     setResultadoUltima('+' + monedasApostadas * 3);
-                //   } else {
-                //     setResultadoUltima('-' + monedasApostadas);
-                //   }
-        const velGanadoraString = velocidadTotugaGanadora.toString() + 's'
+        // const velGanadoraString = velocidadTotugaGanadora.toString() + 's'
 
         tortugas.forEach(tortugaForEach => {
             const ganaste = tortugaForEach.elegida && tortugaForEach.ganadora;
             if (ganaste) {
-                // console.log('GANADORA Velocidad ' + tortugaForEach.nombre + ' : ' + tortugaForEach.elegida)
-            //   console.log('GANASTE TORTUGAS' + tortugaForEach.nombre + ' : ' + tortugaForEach.ganadora)
-              tortugaGanadora = tortugaForEach;
-              monedasAenviar += monedasApostadas*3;
-            //   setResultadoUltima('+'+monedasApostadas*3)
-            } else {
-                // setResultadoUltima('-'+monedasApostadas)
-                // console.log('PERDISTE TORTUGAS' + tortugaForEach.nombre + ' : ' + tortugaForEach.ganadora)
-                // console.log('PERDEDORA Velocidad ' + tortugaForEach.nombre + ' : ' + tortugaForEach.elegida)
+                tortugaGanadora = tortugaForEach;
+                monedasAenviar += monedasApostadas*3;
             }
-          });
-
-          console.log(tortugaGanadora)
+        });
 
           if (tortugaGanadora.elegida) {
-            // setUltimoGanado(2)
-            // setResultadoUltima('+'+monedasApostadas*3);
             setTimeout(()=>setResultadoUltima('+'+monedasApostadas*3), 3000)
             setTimeout(()=>setUltimoGanado(2), 3000)
           } else {
-            // setUltimoGanado(1)
-            // setResultadoUltima('-'+monedasApostadas);
             setTimeout(()=>setResultadoUltima('-'+monedasApostadas), 3000)
             setTimeout(()=>setUltimoGanado(1), 3000)
           }
         
-        // tortugas.forEach(tortugaForEach => {
-        //     if (tortugaForEach.velocidad === velGanadoraString) {
-        //       console.log('La ' + tortugaForEach.nombre + ' ganó')
-        //     } else {
-        //         console.log('La ' + tortugaForEach.nombre + ' perdió')
-        //         console.log('Velocidad ' + tortugaForEach.nombre + ' : ' + tortugaForEach.velocidad)
-        //     }
-        //   });
-
-        // setTortugas(tortugas.map(tortugaMap => {
-        //     if (tortugaMap.velocidad === velocidadTotugaGanadora) {
-        //       console.log('La ' + tortugaMap.nombre + ' ganó')
-        //       return {...tortugaMap};
-        //     } else {
-        //         console.log('La ' + tortugaMap.nombre + ' perdió')
-        //         console.log('Velocidad ' + tortugaMap.nombre + ' : ' + tortugaMap.velocidad)
-        //         return {...tortugaMap};
-        //     }
-        //   }));
-          
-        //   console.log('velocidadT1 ' + velocidadT1)
-
         setMonedasTapadas(true)
         setTimeout(()=>setMonedasTapadas(false), 2000)
         setCorriendo(true)
@@ -337,31 +242,21 @@ export default function Tortugas(){
                             <div className={`tortuga-individual tortuga-individual-uno ${corriendo ? `corriendo` : ''} `} style={{animationDuration: `${velocidadT1}`}}>
                                 <Tortuga tamanio={tamanioTortugas} colorCaparazonDentro={colorCaparazonesDentro[0]} colorCaparazonFuera={colorCaparazonesFuera[0]}/>
                             </div>
-                        {/* <div className="recorrido-num recorrido-tortuga-uno"> */}
-                            {/* <div className={`tortuga-temp tortuga-temp-uno ${corriendo ? `corriendo` : ''} `} style={{animationDuration: `${velocidadT1}`}}></div> */}
-                        </div>
-                    {/* </div> */}
+                            </div>
                     <div className="cancha-tortuga-dos cancha-num">
                         <img src={pista} alt="Pista de carreras" className="imagen-pista imagen-pista-dos"></img>
                             <div className={`tortuga-individual tortuga-individual-dos ${corriendo ? `corriendo` : ''} `} style={{animationDuration: `${velocidadT2}`}}>
                                 <Tortuga tamanio={tamanioTortugas} colorCaparazonDentro={colorCaparazonesDentro[1]} colorCaparazonFuera={colorCaparazonesFuera[1]}/>
                             </div>
-                        {/* <div className="recorrido-num recorrido-tortuga-dos"> */}
-                            {/* <div className={`tortuga-temp tortuga-temp-dos ${corriendo ? `corriendo` : ''}`} style={{animationDuration: `${velocidadT2}`}}></div> */}
-                        {/* </div> */}
                     </div>
                     <div className="cancha-tortuga-tres cancha-num">
                         <img src={pista} alt="Pista de carreras" className="imagen-pista imagen-pista-tres"></img>
                             <div className={`tortuga-individual tortuga-individual-tres ${corriendo ? `corriendo` : ''} `} style={{animationDuration: `${velocidadT3}`}}>
                                 <Tortuga tamanio={tamanioTortugas} colorCaparazonDentro={colorCaparazonesDentro[2]} colorCaparazonFuera={colorCaparazonesFuera[2]}/>
                             </div>
-                        {/* <div className="recorrido-num recorrido-tortuga-tres"> */}
-                            {/* <div className={`tortuga-temp tortuga-temp-tres ${corriendo ? `corriendo` : ''}`} style={{animationDuration: `${velocidadT3}`}}></div> */}
-                        {/* </div> */}
                     </div>
                 </div>
                 <div className="contenedor-elegir-tortugas">
-                                                                       {/* tortugaElegida[0] */}
                     <div className={`elegir-tortuga elegir-tortuga-uno ${tortugas[0].elegida ? `tortuga-elegida` : ``}`} onClick={ () => cambiarTortugaElegida(0)}>
                         <Tortuga tamanio={tamanioTortugas} colorCaparazonDentro={colorCaparazonesDentro[0]} colorCaparazonFuera={colorCaparazonesFuera[0]} colorPiel={colorTransparente} colorBordes={colorTransparente}/>
                     </div>

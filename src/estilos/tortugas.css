@@ -1,6 +1,4 @@
 #Tortugas-Seccion{
-    /* border: solid 10px black;
-    border-color: #256a3b transparent transparent transparent; */
     display: flex   ;
     border-radius: 40px;
     height: 100vh;
@@ -62,15 +60,12 @@
     cursor: pointer;
     background-color: #eba900;
     color: #fff;
-    /* transition: 0.1s linear; */
 }
 .cambiar-apuesta-tortugas button.apuesta-elegida-tortugas{
     color: #fff;
     background-color: #917f53;
     transform: translate(0px, 2px);
-    /* height: 0.96rem; */
     height: 1rem;
-    /* transition: 0.1s linear; */
 }
 
 
@@ -81,10 +76,6 @@
 
 
 .cancha-tortugas{
-    /* border: solid red 1px; */
-    /* position: absolute; */
-    /* bottom: 6rem; */
-    /* top: 30px; */
     margin-top: 3rem;
     width: 100%;
     height: 100%;
@@ -94,27 +85,9 @@
 }
 
 .cancha-tortugas .cancha-num{
-    /* border: solid black 1px; */
     width: 95%;
     margin: 5.1rem;
-    /* padding: 3.8rem 0; */
-    /* background-color: #62cd84; */
 }
-
-.cancha-tortugas .cancha-tortuga-tres{
-    /* border: solid black 1px; */
-    /* margin-bottom: 2.5rem; */
-}
-
-/* NO USADO */
-.recorrido-num{
-    /* border: solid black 1px; */
-    height: 100%;
-    padding: 12px;
-    position: relative;
-}
-/* NO USADO */
-
 .imagen-pista{
     position: absolute;
     width: 100%;
@@ -134,29 +107,6 @@
     width: 100%;
     position: relative;
 }
-
-/* TEMPORALES BORRAR (temp) */
-.tortuga-temp{
-    height: 50px;
-    width: 50px;
-    position: absolute;
-    top: -10px;
-
-    left: 2%;
-    /* left: 92%; */
-    /* background-color: red; */
-}
-
-.tortuga-temp-uno{
-    background-color: red;
-}
-.tortuga-temp-dos{
-    background-color: rgb(34, 92, 16);
-}
-.tortuga-temp-tres{
-    background-color: rgb(33, 11, 95);
-}
-/* TEMPORALES BORRAR (temp) */
 
 .tortuga-individual{
     position: absolute;
@@ -227,32 +177,9 @@
 }
 
 
-/* TEMPORALES BORRAR (temp) */
-.tortuga-temp.corriendo{
-    /* background-color: white; */
-    animation: correr linear 2s both;
-    /* animation-fill-mode: forwards; */
-}
-/* TEMPORALES BORRAR (temp) */
-
 .tortuga-individual.corriendo{
     animation: correr linear 2s both;
 }
-
-/* .tortuga-temp.t{
-    animation: correr linear 1.8s;
-    animation-fill-mode: forwards;
-}
-
-.tortuga-temp.o{
-    animation: correr linear 1.9s;
-    animation-fill-mode: forwards;
-}
-
-.tortuga-temp.r{
-    animation: correr linear 2s;
-    animation-fill-mode: forwards;
-} */
 
 @keyframes correr {
     0%{
@@ -376,25 +303,6 @@
         /* transform: rotate(4deg) */
         transform: scale(0.98);
     }
-}
-
-#pata1{
-    /* transform: rotate(45deg); */
-}
-#pata2{
-    /* transform: rotate(45deg); */
-}
-#pata3{
-    /* transform: rotate(45deg); */
-}
-#pata4{
-    /* transform: rotate(45deg); */
-}
-#cola{
-    /* transform: rotate(45deg); */
-}
-#cabeza{
-    /* transform: rotate(45deg); */
 }
 
 @media screen and (max-width: 1367px){

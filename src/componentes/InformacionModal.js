@@ -1,5 +1,4 @@
 import '../estilos/informacionModal.css';
-import { Children } from "react";
 
 export default function InformacionModal( { children, modalAbierto, cerrarModal } ){
     const noCerrarEnCaja = (evento) => evento.stopPropagation();

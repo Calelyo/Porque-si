@@ -6,7 +6,6 @@ import FlechaAtras from '../svg/FlechaAtras';
 
 export default function BarraJuegos(){
     const [store, dispatch] = useContext(StoreContext);
-    const { componenteInicio } = store;
 
     return(
         <section className="barraJuegos-seccion" id="BarraJuegos-Seccion">
@@ -26,27 +25,27 @@ export default function BarraJuegos(){
                             </div>
                             <div className="mejoras-desplegable-juegos">
                             <div className="palabra-mejora-inicio mejora-desplegable mejora-desplegable-uno">
-                                    Nombre1:
+                                    Nombre 1:
                                     <div className="mejora-ico-juegos mejora-ico-juegos-uno">
-                                        VACIO1
+                                        VACIO 1
                                     </div>
                                 </div>
                                 <div className="palabra-mejora-inicio mejora-desplegable mejora-desplegable-dos">
-                                    Nombre2:
+                                    Nombre 2:
                                     <div className="mejora-ico-juegos mejora-ico-juegos-dos">
-                                        VACIO2
+                                        VACIO 2
                                     </div>
                                 </div>
                                 <div className="palabra-mejora-inicio mejora-desplegable mejora-desplegable-tres">
-                                    Nombre3:
+                                    Nombre 3:
                                     <div className="mejora-ico-juegos mejora-ico-juegos-tres">
-                                        VACIO3
+                                        VACIO 3
                                     </div>
                                 </div>
                                 <div className="palabra-mejora-inicio mejora-desplegable mejora-desplegable-cuatro">
-                                    Nombre4:
+                                    Nombre 4:
                                     <div className="mejora-ico-juegos mejora-ico-juegos-cuatro">
-                                        VACIO4
+                                        VACIO 4
                                     </div>
                                 </div>
                             </div>

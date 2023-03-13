@@ -13,15 +13,6 @@
     display: flex;
 }
 
-/* .modal-informacion-caja{
-    position: relative;
-    display: flex;
-    width: 80vw;
-    height: 80vh;
-    border-radius: 20px;
-    background-color: aqua;
-} */
-
 .modal-informacion-caja{
     color: white;
     position: relative;

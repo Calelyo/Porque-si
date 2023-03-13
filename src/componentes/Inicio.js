@@ -28,9 +28,7 @@ export default function Inicio(){
     if(misMonedas >= 200){
         monedasNuevas -= 200;
         tortugasActualizada = !tortugasActualizada;
-        console.log('TORTUGAS' + tortugasCompradas);
     }
-    // abrirModalMonedasJustas();
     return {type: types.tortugasCompradas, envioMonedas: monedasNuevas, envioTortugas: tortugasActualizada}
   }
 
@@ -48,7 +46,6 @@ export default function Inicio(){
                         <MonedaElegirCara tamanio={tamanioMonedas}/>
                         <MonedaElegirCeca tamanio={tamanioMonedas}/>
                     </div>
-                    {/* <div className="contenedor-juegos-gris"></div> */}
                 </div>
 
                 <div className={`contenedor-juego-individual contenedor-juego-tortugas ${ !tortugasCompradas && `byn`}`}>
@@ -68,10 +65,8 @@ export default function Inicio(){
             </div>
             <BarraContactoModal modalAbiertoContacto={ modalAbiertoContacto } cerrarModalContacto={ cerrarModalContacto }>
                 <div className="mi-web-contacto">
-                    {/* <div className="imagen-web-contacto"> */}
                         <img src={ imgWeb } alt='Imagen Web' loading="lazy"></img>
                         <a href="https://calelsprumont.web.app/" target="_blank"><i>calelsprumont.web.app</i></a>
-                    {/* </div> */}
                 </div>
                 <div className="otros-links-contacto">
                     <div className="link-linkedin-contacto">
